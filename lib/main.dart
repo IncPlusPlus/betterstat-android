@@ -10,7 +10,6 @@ import 'package:betterstatmobile/middleware/store_schedules_middleware.dart';
 import 'package:betterstatmobile/models/app_state.dart';
 import 'package:betterstatmobile/presentation/home_screen.dart';
 import 'package:betterstatmobile/reducers/reducers.dart';
-import 'package:betterstatmobile/schedules_page.dart';
 import 'package:betterstatmobile/util/keys.dart';
 import 'package:betterstatmobile/util/routes.dart';
 import 'package:built_redux/built_redux.dart';
@@ -59,7 +58,7 @@ class BetterstatAppState extends State<BetterstatApp> {
       store: store,
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Thing',
+          title: 'Betterstat',
           theme: ThemeData.light(),
           localizationsDelegates: [
             const BetterstatLocalizationsDelegate(),
