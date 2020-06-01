@@ -32,6 +32,8 @@
 /build/
 # For applications, we actually do want to commit this. See https://dart.dev/guides/libraries/private-files
 #pubspec.lock
+# See https://github.com/google/built_value.dart/#user-content-faq
+*.g.dart
 
 # Web related
 lib/generated_plugin_registrant.dart
