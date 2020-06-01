@@ -10,7 +10,7 @@ class ScheduleItem extends StatelessWidget {
   ScheduleItem({
     @required this.onTap,
     @required this.schedule,
-  }) : super(key: BetterstatKeys.todoItem(schedule.id));
+  }) : super(key: BetterstatKeys.scheduleItem(schedule.id));
 
   @override
   Widget build(BuildContext context) {

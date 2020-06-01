@@ -11,15 +11,14 @@ class SchedulesTab extends StoreConnector<AppState, AppActions, List<Schedule>> 
   Widget build(BuildContext context, List<Schedule> state, AppActions actions) {
     return ScheduleList(
       schedules: state,
-//      onCheckboxChanged: (todo, complete) {
-//        actions.updateScheduleAction(UpdateScheduleActionPayload(
-//            todo.id, todo.rebuild((b) => b..complete = complete)));
-//      },
-      onRemove: (todo) {
-        actions.deleteScheduleAction(todo.id);
+      onRefresh: () async {
+        await actions.fetchSchedulesAction();
       },
-      onUndoRemove: (todo) {
-        actions.addScheduleAction(todo);
+      onRemove: (schedule) {
+        actions.deleteScheduleAction(schedule.id);
+      },
+      onUndoRemove: (schedule) {
+        actions.addScheduleAction(schedule);
       },
     );
   }

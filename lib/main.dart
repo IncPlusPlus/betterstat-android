@@ -1,8 +1,3 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
-// You can read about packages here: https://flutter.io/using-packages/
 import 'package:betterstatmobile/actions/actions.dart';
 import 'package:betterstatmobile/containers/add_schedule.dart';
 import 'package:betterstatmobile/localization.dart';
@@ -17,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_built_redux/flutter_built_redux.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-/// The function that is called when main.dart is run.
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 

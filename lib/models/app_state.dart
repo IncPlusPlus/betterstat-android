@@ -44,7 +44,7 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
 
   Optional<Schedule> scheduleSelector(String id) {
     try {
-      return Optional.of(schedules.firstWhere((todo) => todo.id == id));
+      return Optional.of(schedules.firstWhere((schedule) => schedule.id == id));
     } catch (e) {
       return Optional.absent();
     }

@@ -21,7 +21,7 @@ class HomeScreen extends StatelessWidget {
           ),
           body: activeTab == AppTab.schedules ? SchedulesTab() : Stats(),
           floatingActionButton: FloatingActionButton(
-            key: BetterstatKeys.addTodoFab,
+            key: BetterstatKeys.addScheduleFab,
             onPressed: () {
               Navigator.pushNamed(context, BetterstatRoutes.addSchedule);
             },

@@ -11,44 +11,53 @@ import 'package:betterstatmobile/util/keys.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+    new GlobalKey<RefreshIndicatorState>();
+
 class ScheduleList extends StatelessWidget {
   final List<Schedule> schedules;
   final Function(Schedule) onRemove;
   final Function(Schedule) onUndoRemove;
+  final Function() onRefresh;
 
   ScheduleList({
     @required this.schedules,
     @required this.onRemove,
     @required this.onUndoRemove,
-  }) : super(key: BetterstatKeys.todoList);
+    @required this.onRefresh,
+  }) : super(key: BetterstatKeys.scheduleList);
 
   @override
   Widget build(BuildContext context) {
     return AppLoading(builder: (context, loading) {
       return loading
           ? Center(
-              key: BetterstatKeys.todosLoading,
+              key: BetterstatKeys.schedulesLoading,
               child: CircularProgressIndicator(
                 key: BetterstatKeys.statsLoading,
               ))
-          : Container(
-              child: ListView.builder(
-                key: BetterstatKeys.todoList,
-                itemCount: schedules.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final schedule = schedules[index];
+          : RefreshIndicator(
+        key: _refreshIndicatorKey,
+            onRefresh: () async {await onRefresh();},
+            child: Container(
+                child: ListView.builder(
+                  key: BetterstatKeys.scheduleList,
+                  itemCount: schedules.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final schedule = schedules[index];
 
-                  return ScheduleItem(
-                    schedule: schedule,
-                    onTap: () => _onScheduleTap(context, schedule),
-                  );
-                },
+                    return ScheduleItem(
+                      schedule: schedule,
+                      onTap: () => {},
+                    );
+                  },
+                ),
               ),
-            );
+          );
     });
   }
 
-  void _removeTodo(BuildContext context, Schedule schedule) {
+  void _removeSchedule(BuildContext context, Schedule schedule) {
     onRemove(schedule);
 
     Scaffold.of(context).showSnackBar(SnackBar(
@@ -74,8 +83,8 @@ class ScheduleList extends StatelessWidget {
           );
         },
       ),
-    ).then((removedTodo) {
-      if (removedTodo != null) {
+    ).then((removedSchedule) {
+      if (removedSchedule != null) {
         Scaffold.of(context).showSnackBar(
           SnackBar(
             key: BetterstatKeys.snackbar,
