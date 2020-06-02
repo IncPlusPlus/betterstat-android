@@ -2,6 +2,8 @@
 // Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
+import 'dart:async';
+
 import 'package:betterstatmobile/containers/app_loading.dart';
 import 'package:betterstatmobile/containers/schedule_details.dart';
 import 'package:betterstatmobile/localization.dart';
@@ -18,7 +20,7 @@ class ScheduleList extends StatelessWidget {
   final List<Schedule> schedules;
   final Function(Schedule) onRemove;
   final Function(Schedule) onUndoRemove;
-  final Function() onRefresh;
+  Future<Null> Function(Completer<Null>) onRefresh;
 
   ScheduleList({
     @required this.schedules,
@@ -30,31 +32,40 @@ class ScheduleList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppLoading(builder: (context, loading) {
-      return loading
-          ? Center(
-              key: BetterstatKeys.schedulesLoading,
-              child: CircularProgressIndicator(
-                key: BetterstatKeys.statsLoading,
-              ))
-          : RefreshIndicator(
+      return RefreshIndicator(
         key: _refreshIndicatorKey,
-            onRefresh: () async {await onRefresh();},
-            child: Container(
-                child: ListView.builder(
-                  key: BetterstatKeys.scheduleList,
-                  itemCount: schedules.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final schedule = schedules[index];
+        onRefresh: () => onRefresh(Completer<Null>()),
+        child: Container(
+          child: ListView.builder(
+            key: BetterstatKeys.scheduleList,
+            itemCount: schedules.length,
+            itemBuilder: (BuildContext context, int index) {
+              final schedule = schedules[index];
 
-                    return ScheduleItem(
-                      schedule: schedule,
-                      onTap: () => {},
-                    );
-                  },
-                ),
-              ),
-          );
+              return ScheduleItem(
+                schedule: schedule,
+                onTap: () => {},
+              );
+            },
+          ),
+        ),
+      );
     });
+  }
+
+  Future waitWhile(bool Function() test,
+      [Duration pollInterval = Duration.zero]) {
+    var completer = Completer();
+    void check() {
+      if (!test()) {
+        completer.complete();
+      } else {
+        Timer(pollInterval, check);
+      }
+    }
+
+    check();
+    return completer.future;
   }
 
   void _removeSchedule(BuildContext context, Schedule schedule) {
@@ -90,7 +101,8 @@ class ScheduleList extends StatelessWidget {
             key: BetterstatKeys.snackbar,
             duration: Duration(seconds: 2),
             content: Text(
-              BetterstatLocalizations.of(context).scheduleDeleted(schedule.name),
+              BetterstatLocalizations.of(context)
+                  .scheduleDeleted(schedule.name),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
