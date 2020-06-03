@@ -1,7 +1,5 @@
 library actions;
 
-import 'dart:async';
-
 import 'package:betterstatmobile/models/models.dart';
 import 'package:built_redux/built_redux.dart';
 import 'package:built_value/built_value.dart';
@@ -12,7 +10,7 @@ part 'actions.g.dart';
 abstract class AppActions implements ReduxActions {
   ActionDispatcher<Schedule> addScheduleAction;
   ActionDispatcher<String> deleteScheduleAction;
-  ActionDispatcher<Completer<Null>> fetchSchedulesAction;
+  ActionDispatcher<Null> fetchSchedulesAction;
   ActionDispatcher<List<Schedule>> loadSchedulesSuccess;
   ActionDispatcher<Object> loadSchedulesFailure;
   ActionDispatcher<AppTab> updateTabAction;

@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:betterstatmobile/actions/actions.dart';
 import 'package:betterstatmobile/containers/add_schedule.dart';
 import 'package:betterstatmobile/localization.dart';
@@ -43,7 +41,7 @@ class BetterstatAppState extends State<BetterstatApp> {
   void initState() {
     store = widget.store;
 
-    store.actions.fetchSchedulesAction(Completer<Null>());
+    store.actions.fetchSchedulesAction();
 
     super.initState();
   }
