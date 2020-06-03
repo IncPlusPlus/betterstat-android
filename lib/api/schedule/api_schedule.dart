@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:core';
 
@@ -16,22 +17,26 @@ Future<Schedule> postSchedule(Schedule schedule) async {
   final uri = Uri.http(apiUrl, '$scheduleEndpoint');
   final response = await httpClient.put(uri,
       headers: applicationJsonHeader,
-      body: jsonEncode(serialize<Schedule>(schedule)));
+      body: jsonEncode(serialize<Schedule>(schedule))).timeout(timeout);
   _expectResponseCode(201, response);
   return deserialize<Schedule>(jsonDecode(response.body));
 }
 
 Future<List<Schedule>> getSchedules() async {
   final uri = Uri.http(apiUrl, scheduleEndpoint);
-  final response = await httpClient.get(uri);
-  _expectResponseCode(200, response);
-  // Use the compute function to run parseSchedules in a separate isolate.
-  return compute(_parseSchedules, response.body);
+  try {
+    final response = await httpClient.get(uri).timeout(timeout);
+    _expectResponseCode(200, response);
+    // Use the compute function to run parseSchedules in a separate isolate.
+    return compute(_parseSchedules, response.body);
+  } on TimeoutException catch (te, stacktrace) {
+    return Future.error(te, stacktrace);
+  }
 }
 
 Future<Schedule> getSchedule(String id) async {
   final uri = Uri.http(apiUrl, '$scheduleEndpoint/$id');
-  final response = await httpClient.get(uri);
+  final response = await httpClient.get(uri).timeout(timeout);
   _expectResponseCode(200, response);
   return deserialize<Schedule>(jsonDecode(response.body));
 }
@@ -40,14 +45,14 @@ Future<Schedule> putSchedule(Schedule schedule, String id) async {
   final uri = Uri.http(apiUrl, '$scheduleEndpoint/$id');
   final response = await httpClient.put(uri,
       headers: applicationJsonHeader,
-      body: jsonEncode(serialize<Schedule>(schedule)));
+      body: jsonEncode(serialize<Schedule>(schedule))).timeout(timeout);
   _expectResponseCode(200, response);
   return deserialize<Schedule>(jsonDecode(response.body));
 }
 
 Future<Schedule> deleteSchedule(Schedule schedule, String id) async {
   final uri = Uri.http(apiUrl, '$scheduleEndpoint/$id');
-  final response = await httpClient.delete(uri);
+  final response = await httpClient.delete(uri).timeout(timeout);
   _expectResponseCode(200, response);
   return deserialize<Schedule>(jsonDecode(response.body));
 }
