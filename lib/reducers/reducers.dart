@@ -10,7 +10,8 @@ var reducerBuilder = ReducerBuilder<AppState, AppStateBuilder>()
   ..add(AppActionsNames.loadSchedulesSuccess, schedulesLoaded)
   ..add(AppActionsNames.loadSchedulesFailure, schedulesLoadFailed);
 
-void addSchedule(AppState state, Action<Schedule> action, AppStateBuilder builder) {
+void addSchedule(
+    AppState state, Action<Schedule> action, AppStateBuilder builder) {
   builder.schedules.add(action.payload);
 }
 
@@ -27,6 +28,7 @@ void schedulesLoaded(
     AppState state, Action<List<Schedule>> action, AppStateBuilder builder) {
   builder
     ..isLoading = false
+    ..schedules.clear()
     ..schedules.addAll(action.payload);
 }
 
@@ -39,6 +41,7 @@ void schedulesLoadFailed(
 
 void updateSchedule(AppState state, Action<UpdateScheduleActionPayload> action,
     AppStateBuilder builder) {
-  builder.schedules.map((schedule) =>
-      schedule.id == action.payload.id ? action.payload.updatedSchedule : schedule);
+  builder.schedules.map((schedule) => schedule.id == action.payload.id
+      ? action.payload.updatedSchedule
+      : schedule);
 }
