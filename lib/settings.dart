@@ -1,5 +1,3 @@
-enum TempUnit { F, C }
-
 TempUnit _preferredTempUnit = TempUnit.F;
 
 TempUnit getPreferredTempUnit() {
@@ -27,3 +25,5 @@ double _cToF(double degreesCelsius) {
 double _fToC(double degreesFahrenheit) {
   return (degreesFahrenheit - 32) * (5 / 9);
 }
+
+enum TempUnit { F, C }

@@ -11,10 +11,10 @@ class ActiveTab extends StoreConnector<AppState, AppActions, AppTab> {
   ActiveTab({Key key, @required this.builder}) : super(key: key);
 
   @override
-  AppTab connect(AppState state) => state.activeTab;
-
-  @override
   Widget build(BuildContext context, AppTab activeTab, AppActions actions) {
     return builder(context, activeTab);
   }
+
+  @override
+  AppTab connect(AppState state) => state.activeTab;
 }

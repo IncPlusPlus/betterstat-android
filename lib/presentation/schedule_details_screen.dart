@@ -57,6 +57,50 @@ class DetailsScreen extends StatelessWidget {
     );
   }
 
+  Widget setPointDisplay(
+      SetPointTimeTuple setPointTimeTuple, BuildContext context) {
+    return Padding(
+      padding: _padding,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          // This is the widget that accepts text input. In this case, it
+          // accepts numbers and calls the onChanged property on update.
+          // You can read more about it here: https://flutter.io/text-input
+          Center(
+              child: Text(
+            getPrefTemp(setPointTimeTuple.setPoint).toString() +
+                ' °${getPreferredTempUnit().toString().substring(getPreferredTempUnit().toString().indexOf('.') + 1)}',
+            style: Theme.of(context).textTheme.headline5,
+          )),
+        ],
+      ),
+    );
+  }
+
+  Widget timeDisplay(SetPointTimeTuple setPointTimeTuple,
+      BuildContext context) {
+    return Padding(
+      padding: _padding,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          InkWell(
+            child: Center(
+              child: Text(
+                setPointTimeTuple.time.toString('hh:mm tt'),
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .headline5,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildPanel(BuildContext context) {
     return ListView.builder(
       itemCount: schedule.times.length,
@@ -75,47 +119,6 @@ class DetailsScreen extends StatelessWidget {
           ],
         );
       },
-    );
-  }
-
-  Widget timeDisplay(
-      SetPointTimeTuple setPointTimeTuple, BuildContext context) {
-    return Padding(
-      padding: _padding,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          InkWell(
-            child: Center(
-              child: Text(
-                setPointTimeTuple.time.toString('hh:mm tt'),
-                style: Theme.of(context).textTheme.headline5,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget setPointDisplay(
-      SetPointTimeTuple setPointTimeTuple, BuildContext context) {
-    return Padding(
-      padding: _padding,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          // This is the widget that accepts text input. In this case, it
-          // accepts numbers and calls the onChanged property on update.
-          // You can read more about it here: https://flutter.io/text-input
-          Center(
-              child: Text(
-                getPrefTemp(setPointTimeTuple.setPoint).toString() +
-                    ' °${getPreferredTempUnit().toString().substring(getPreferredTempUnit().toString().indexOf('.') + 1)}',
-                style: Theme.of(context).textTheme.headline5,
-              )),
-        ],
-      ),
     );
   }
 }

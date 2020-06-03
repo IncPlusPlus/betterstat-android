@@ -1,6 +1,6 @@
-import 'package:built_redux/built_redux.dart';
 import 'package:betterstatmobile/actions/actions.dart';
 import 'package:betterstatmobile/models/models.dart';
+import 'package:built_redux/built_redux.dart';
 
 var reducerBuilder = ReducerBuilder<AppState, AppStateBuilder>()
   ..add(AppActionsNames.addScheduleAction, addSchedule)
@@ -18,10 +18,6 @@ void addSchedule(
 void deleteSchedule(
     AppState state, Action<String> action, AppStateBuilder builder) {
   builder.schedules.where((schedule) => schedule.id != action.payload);
-}
-
-void updateTab(AppState state, Action<AppTab> action, AppStateBuilder builder) {
-  builder.activeTab = action.payload;
 }
 
 void schedulesLoaded(
@@ -44,4 +40,8 @@ void updateSchedule(AppState state, Action<UpdateScheduleActionPayload> action,
   builder.schedules.map((schedule) => schedule.id == action.payload.id
       ? action.payload.updatedSchedule
       : schedule);
+}
+
+void updateTab(AppState state, Action<AppTab> action, AppStateBuilder builder) {
+  builder.activeTab = action.payload;
 }

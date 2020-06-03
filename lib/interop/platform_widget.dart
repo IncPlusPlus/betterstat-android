@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'dart:io' show Platform;
+
+import 'package:flutter/material.dart';
 
 ///A factory to create a platform-specific widget.
 ///Shamelessly copied from [Swav Kulinski's article](https://medium.com/flutter/do-flutter-apps-dream-of-platform-aware-widgets-7d7ed7b4624d).
@@ -17,7 +18,7 @@ abstract class PlatformWidget<I extends Widget, A extends Widget>
     return Container();
   }
 
-  I createIosWidget(BuildContext context);
-
   A createAndroidWidget(BuildContext context);
+
+  I createIosWidget(BuildContext context);
 }

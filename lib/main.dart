@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:betterstatmobile/actions/actions.dart';
 import 'package:betterstatmobile/containers/add_schedule.dart';
 import 'package:betterstatmobile/localization.dart';
@@ -9,7 +7,6 @@ import 'package:betterstatmobile/presentation/home_screen.dart';
 import 'package:betterstatmobile/reducers/reducers.dart';
 import 'package:betterstatmobile/util/keys.dart';
 import 'package:betterstatmobile/util/routes.dart';
-import 'package:betterstatmobile/util/specialized_completer.dart';
 import 'package:built_redux/built_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_built_redux/flutter_built_redux.dart';
@@ -39,13 +36,6 @@ class BetterstatApp extends StatefulWidget {
 
 class BetterstatAppState extends State<BetterstatApp> {
   Store<AppState, AppStateBuilder, AppActions> store;
-
-  @override
-  void initState() {
-    store = widget.store;
-
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,5 +68,12 @@ class BetterstatAppState extends State<BetterstatApp> {
             },
           }),
     );
+  }
+
+  @override
+  void initState() {
+    store = widget.store;
+
+    super.initState();
   }
 }

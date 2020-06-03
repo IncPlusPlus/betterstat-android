@@ -32,15 +32,6 @@ class _AddEditScreenState extends State<AddEditScreen> {
 
   bool get isEditing => widget.isEditing;
 
-
-  @override
-  void initState() {
-    super.initState();
-    //We want copies of the original tuples which we will then replace upon
-    // submitting the form.
-    _times = List.of(widget.schedule.times);
-  }
-
   @override
   Widget build(BuildContext context) {
     final localizations = BetterstatLocalizations.of(context);
@@ -95,27 +86,12 @@ class _AddEditScreenState extends State<AddEditScreen> {
     );
   }
 
-  void updateTime(LocalTime newVal, SetPointTimeTuple setPointTimeTuple) {
-              setState(() {
-                _times[_times.indexOf(setPointTimeTuple)] = setPointTimeTuple.rebuild((b) => b..time = newVal);
-              });
-  }
-
-  void updateSetPoint(double newVal, SetPointTimeTuple setPointTimeTuple) {
-    setState(() {
-      _times[_times.indexOf(setPointTimeTuple)] = setPointTimeTuple.rebuild((b) => b..setPoint = setPrefTemp(newVal));
-    });
-  }
-
-  Widget timeDisplay(SetPointTimeTuple setPointTimeTuple) {
-    return Padding(
-      padding: _padding,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          LocalTimeFormField(initialValue: setPointTimeTuple.time,onSaved: (LocalTime newValue) => updateTime(newValue,setPointTimeTuple),)        ],
-      ),
-    );
+  @override
+  void initState() {
+    super.initState();
+    //We want copies of the original tuples which we will then replace upon
+    // submitting the form.
+    _times = List.of(widget.schedule.times);
   }
 
   Widget setPointDisplay(SetPointTimeTuple setPointTimeTuple) {
@@ -151,6 +127,36 @@ class _AddEditScreenState extends State<AddEditScreen> {
         ],
       ),
     );
+  }
+
+  Widget timeDisplay(SetPointTimeTuple setPointTimeTuple) {
+    return Padding(
+      padding: _padding,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          LocalTimeFormField(
+            initialValue: setPointTimeTuple.time,
+            onSaved: (LocalTime newValue) =>
+                updateTime(newValue, setPointTimeTuple),
+          )
+        ],
+      ),
+    );
+  }
+
+  void updateSetPoint(double newVal, SetPointTimeTuple setPointTimeTuple) {
+    setState(() {
+      _times[_times.indexOf(setPointTimeTuple)] =
+          setPointTimeTuple.rebuild((b) => b..setPoint = setPrefTemp(newVal));
+    });
+  }
+
+  void updateTime(LocalTime newVal, SetPointTimeTuple setPointTimeTuple) {
+    setState(() {
+      _times[_times.indexOf(setPointTimeTuple)] =
+          setPointTimeTuple.rebuild((b) => b..time = newVal);
+    });
   }
 
   Widget _buildPanel() {

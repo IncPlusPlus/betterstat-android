@@ -1,7 +1,5 @@
 library actions;
 
-import 'dart:async';
-
 import 'package:betterstatmobile/models/models.dart';
 import 'package:betterstatmobile/util/specialized_completer.dart';
 import 'package:built_redux/built_redux.dart';
@@ -19,9 +17,9 @@ abstract class AppActions implements ReduxActions {
   ActionDispatcher<AppTab> updateTabAction;
   ActionDispatcher<UpdateScheduleActionPayload> updateScheduleAction;
 
-  AppActions._();
-
   factory AppActions() => _$AppActions();
+
+  AppActions._();
 }
 
 abstract class UpdateScheduleActionPayload
@@ -30,15 +28,15 @@ abstract class UpdateScheduleActionPayload
   static Serializer<UpdateScheduleActionPayload> get serializer =>
       _$updateScheduleActionPayloadSerializer;
 
-  String get id;
-
-  Schedule get updatedSchedule;
-
-  UpdateScheduleActionPayload._();
-
   factory UpdateScheduleActionPayload(String id, Schedule updatedSchedule) =>
       _$UpdateScheduleActionPayload._(
         id: id,
         updatedSchedule: updatedSchedule,
       );
+
+  UpdateScheduleActionPayload._();
+
+  String get id;
+
+  Schedule get updatedSchedule;
 }

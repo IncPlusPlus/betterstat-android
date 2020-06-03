@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:betterstatmobile/actions/actions.dart';
 import 'package:betterstatmobile/models/models.dart';
 import 'package:betterstatmobile/presentation/schedule_list.dart';

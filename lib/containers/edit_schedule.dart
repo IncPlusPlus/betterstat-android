@@ -2,9 +2,9 @@ import 'package:betterstatmobile/actions/actions.dart';
 import 'package:betterstatmobile/models/models.dart';
 import 'package:betterstatmobile/presentation/add_edit_screen.dart';
 import 'package:betterstatmobile/util/keys.dart';
+import 'package:built_collection/built_collection.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_built_redux/flutter_built_redux.dart';
-import 'package:built_collection/built_collection.dart';
 
 class EditSchedule extends StoreConnector<AppState, AppActions, Null> {
   final Schedule schedule;

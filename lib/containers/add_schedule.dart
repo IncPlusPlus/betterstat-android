@@ -1,9 +1,9 @@
 import 'package:betterstatmobile/actions/actions.dart';
 import 'package:betterstatmobile/models/models.dart';
 import 'package:betterstatmobile/presentation/add_edit_screen.dart';
+import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_built_redux/flutter_built_redux.dart';
-import 'package:built_collection/built_collection.dart';
 
 class AddSchedule extends StoreConnector<AppState, AppActions, Null> {
   AddSchedule({Key key}) : super(key: key);

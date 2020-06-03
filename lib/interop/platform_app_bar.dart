@@ -10,15 +10,15 @@ class PlatformAppBar extends PlatformWidget<CupertinoNavigationBar, AppBar> {
   PlatformAppBar(this.leading, this.title);
 
   @override
+  AppBar createAndroidWidget(BuildContext context) => AppBar(
+        leading: leading,
+        title: title,
+      );
+
+  @override
   CupertinoNavigationBar createIosWidget(BuildContext context) =>
       CupertinoNavigationBar(
         leading: leading,
         middle: title,
-      );
-
-  @override
-  AppBar createAndroidWidget(BuildContext context) => AppBar(
-        leading: leading,
-        title: title,
       );
 }

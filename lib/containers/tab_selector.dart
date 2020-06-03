@@ -12,9 +12,6 @@ class TabSelector extends StoreConnector<AppState, AppActions, AppTab> {
   TabSelector({Key key}) : super(key: key);
 
   @override
-  AppTab connect(AppState state) => state.activeTab;
-
-  @override
   Widget build(BuildContext context, AppTab activeTab, AppActions action) {
     return BottomNavigationBar(
       key: BetterstatKeys.tabs,
@@ -37,4 +34,7 @@ class TabSelector extends StoreConnector<AppState, AppActions, AppTab> {
       }).toList(),
     );
   }
+
+  @override
+  AppTab connect(AppState state) => state.activeTab;
 }

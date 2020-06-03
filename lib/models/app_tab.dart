@@ -5,17 +5,17 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
 part 'app_tab.g.dart';
-class AppTab extends EnumClass {
-  static Serializer<AppTab> get serializer => _$appTabSerializer;
 
+class AppTab extends EnumClass {
   static const AppTab schedules = _$schedules;
+
   static const AppTab stats = _$stats;
 
-  const AppTab._(String name) : super(name);
+  static Serializer<AppTab> get serializer => _$appTabSerializer;
 
   static BuiltSet<AppTab> get values => _$appTabValues;
 
-  static AppTab valueOf(String name) => _$appTabValueOf(name);
+  const AppTab._(String name) : super(name);
 
   static AppTab fromIndex(int index) {
     switch (index) {
@@ -34,4 +34,6 @@ class AppTab extends EnumClass {
         return 0;
     }
   }
+
+  static AppTab valueOf(String name) => _$appTabValueOf(name);
 }

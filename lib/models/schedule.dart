@@ -1,27 +1,15 @@
 library scheudle;
 
-import 'dart:convert';
-
-import 'package:betterstatmobile/models/models.dart';
+import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:meta/meta.dart';
 import 'package:time_machine/time_machine.dart';
 import 'package:time_machine/time_machine_text_patterns.dart';
-import 'package:built_collection/built_collection.dart';
 
 part 'schedule.g.dart';
 
 abstract class Schedule implements Built<Schedule, ScheduleBuilder> {
   static Serializer<Schedule> get serializer => _$scheduleSerializer;
-
-  String get id;
-
-  String get name;
-
-  BuiltList<SetPointTimeTuple> get times;
-
-  Schedule._();
 
   factory Schedule([void Function(ScheduleBuilder) updates]) = _$Schedule;
 
@@ -34,6 +22,14 @@ abstract class Schedule implements Built<Schedule, ScheduleBuilder> {
 
     return builder.build();
   }
+
+  Schedule._();
+
+  String get id;
+
+  String get name;
+
+  BuiltList<SetPointTimeTuple> get times;
 }
 
 abstract class SetPointTimeTuple
@@ -42,27 +38,34 @@ abstract class SetPointTimeTuple
   static Serializer<SetPointTimeTuple> get serializer =>
       SetPointTimeTupleSerializer();
 
-  double get setPoint;
-
-  LocalTime get time;
-
-  SetPointTimeTuple._();
-
   factory SetPointTimeTuple([void Function(SetPointTimeTupleBuilder) updates]) =
       _$SetPointTimeTuple;
 
-  factory SetPointTimeTuple.builder([void Function(SetPointTimeTupleBuilder) updates]) {
+  factory SetPointTimeTuple.builder(
+      [void Function(SetPointTimeTupleBuilder) updates]) {
     final builder = SetPointTimeTupleBuilder()
-        ..setPoint = 0.0
-        ..time = null
-        ..update(updates);
+      ..setPoint = 0.0
+      ..time = null
+      ..update(updates);
 
     return builder.build();
   }
+
+  SetPointTimeTuple._();
+
+  double get setPoint;
+
+  LocalTime get time;
 }
 
 class SetPointTimeTupleSerializer
     implements StructuredSerializer<SetPointTimeTuple> {
+  @override
+  Iterable<Type> get types => [SetPointTimeTuple, _$SetPointTimeTuple];
+
+  @override
+  String get wireName => 'SetPointTimeTuple';
+
   @override
   SetPointTimeTuple deserialize(Serializers serializers, Iterable serialized,
       {FullType specifiedType = FullType.unspecified}) {
@@ -99,15 +102,9 @@ class SetPointTimeTupleSerializer
       serializers.serialize(object.setPoint,
           specifiedType: const FullType(double)),
       'time',
-LocalTimePattern.extendedIso.format(object.time),
+      LocalTimePattern.extendedIso.format(object.time),
     ];
 
     return result;
   }
-
-  @override
-  Iterable<Type> get types => [SetPointTimeTuple, _$SetPointTimeTuple];
-
-  @override
-  String get wireName => 'SetPointTimeTuple';
 }

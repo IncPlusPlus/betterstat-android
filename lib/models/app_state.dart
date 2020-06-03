@@ -12,15 +12,6 @@ part 'app_state.g.dart';
 abstract class AppState implements Built<AppState, AppStateBuilder> {
   static Serializer<AppState> get serializer => _$appStateSerializer;
 
-  bool get isLoading;
-
-  BuiltList<Schedule> get schedules;
-
-  AppTab get activeTab;
-
-//  List<Thermostat> get thermostats;
-  AppState._();
-
   factory AppState([void Function(AppStateBuilder b) updates]) =>
       _$AppState((b) => b
         ..isLoading = false
@@ -28,16 +19,25 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
         ..activeTab = AppTab.schedules
         ..update(updates));
 
-  factory AppState.loading() => AppState((b) => b..isLoading = true);
-
   factory AppState.fromSchedules(List<Schedule> schedules) =>
       AppState((b) => b..schedules = ListBuilder<Schedule>(schedules));
+
+  factory AppState.loading() => AppState((b) => b..isLoading = true);
+
+//  List<Thermostat> get thermostats;
+  AppState._();
+
+  AppTab get activeTab;
+
+  bool get isLoading;
+
+  @memoized
+  int get numActiveSelector => 2;
 
   @memoized
   int get numCompletedSelector => 10;
 
-  @memoized
-  int get numActiveSelector => 2;
+  BuiltList<Schedule> get schedules;
 
   @memoized
   List<Schedule> get schedulesSelector => schedules.toList();
