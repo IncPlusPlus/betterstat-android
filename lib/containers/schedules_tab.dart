@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:betterstatmobile/actions/actions.dart';
 import 'package:betterstatmobile/models/models.dart';
 import 'package:betterstatmobile/presentation/schedule_list.dart';
+import 'package:betterstatmobile/util/specialized_completer.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_built_redux/flutter_built_redux.dart';
 
@@ -14,9 +15,9 @@ class SchedulesTab
   Widget build(BuildContext context, List<Schedule> state, AppActions actions) {
     return ScheduleList(
       schedules: state,
-      onRefresh: (Completer<Null> completer) {
-        actions.fetchSchedulesAction(completer);
-        return completer.future;
+      onRefresh: (SpecializedCompleterTuple tuple) {
+        actions.fetchSchedulesAction(tuple);
+        return tuple.completer.future;
       },
       onRemove: (schedule) {
         actions.deleteScheduleAction(schedule.id);

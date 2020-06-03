@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:betterstatmobile/repository/SchedulesRepository.dart';
+import 'package:betterstatmobile/util/specialized_completer.dart';
 import 'package:built_redux/built_redux.dart';
 import 'package:betterstatmobile/actions/actions.dart';
 import 'package:betterstatmobile/repository/WebRepository.dart';
@@ -12,7 +13,7 @@ Middleware<AppState, AppStateBuilder, AppActions>
 ]) {
   return (MiddlewareBuilder<AppState, AppStateBuilder, AppActions>()
         ..add(AppActionsNames.fetchSchedulesAction,
-            createFetchSchedules<Completer<Null>>(repository))
+            createFetchSchedules<SpecializedCompleterTuple>(repository))
         ..add(AppActionsNames.addScheduleAction,
             createSaveSchedule<Schedule>(repository))
 //        ..add(AppActionsNames.loadSchedulesSuccess,
@@ -59,11 +60,14 @@ MiddlewareHandler<AppState, AppStateBuilder, AppActions, T>
     createFetchSchedules<T>(SchedulesRepository repository) {
   return (MiddlewareApi<AppState, AppStateBuilder, AppActions> api,
       ActionHandler next, Action<T> action) {
+      var loadingCallback = action.payload as SpecializedCompleterTuple;
     repository.loadSchedules().then((schedules) {
-      var loadingCallback = action.payload as Completer<Null>;
-      loadingCallback.complete();
+      loadingCallback.statusCompleter.complete();
       return api.actions.loadSchedulesSuccess(schedules);
-    }).catchError(api.actions.loadSchedulesFailure);
+    }).catchError((Object error, [StackTrace stackTrace]){
+      loadingCallback.statusCompleter.completeError(error, stackTrace);
+      return api.actions.loadSchedulesFailure();
+    }).whenComplete(() => loadingCallback.completer.complete());
     next(action);
   };
 }
