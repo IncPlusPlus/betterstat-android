@@ -50,7 +50,7 @@ class ScheduleList extends StatelessWidget {
 
               return ScheduleItem(
                 schedule: schedule,
-                onTap: () => {},
+                onTap: () => {_onScheduleTap(context, schedule)},
               );
             },
           ),
