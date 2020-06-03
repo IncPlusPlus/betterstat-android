@@ -24,14 +24,10 @@ Future<Schedule> postSchedule(Schedule schedule) async {
 
 Future<List<Schedule>> getSchedules() async {
   final uri = Uri.http(apiUrl, scheduleEndpoint);
-  try {
-    final response = await httpClient.get(uri).timeout(timeout);
-    _expectResponseCode(200, response);
-    // Use the compute function to run parseSchedules in a separate isolate.
-    return compute(_parseSchedules, response.body);
-  } on TimeoutException catch (te, stacktrace) {
-    return Future.error(te, stacktrace);
-  }
+  final response = await httpClient.get(uri).timeout(timeout);
+  _expectResponseCode(200, response);
+  // Use the compute function to run parseSchedules in a separate isolate.
+  return compute(_parseSchedules, response.body);
 }
 
 Future<Schedule> getSchedule(String id) async {
