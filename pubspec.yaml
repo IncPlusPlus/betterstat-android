@@ -23,6 +23,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  time_machine: "^0.9.12"
+  http: ^0.12.1
+  async: ^2.4.1
+  intl: ^0.16.1
+  flutter_built_redux: ^0.6.0
+  built_redux: ^7.5.11
+  built_value: ^7.1.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -32,6 +41,10 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  pedantic: ^1.8.0
+  intl_translation: ^0.17.10
+  build_runner: ^1.10.0
+  built_value_generator: ^7.1.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -44,6 +57,11 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+  # Dangling the last / doesn't seem to work.. :(
+  # e.g. `- packages/time_machine/data/cultures/` fails
+  assets:
+    - packages/time_machine/data/cultures/cultures.bin
+    - packages/time_machine/data/tzdb/tzdb.bin
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

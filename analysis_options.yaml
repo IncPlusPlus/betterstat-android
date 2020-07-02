@@ -1,0 +1,7 @@
+include: package:pedantic/analysis_options.yaml
+
+analyzer:
+  exclude:
+    - lib/**.g.dart
+    - lib/localizations/*.dart
+    - test/_data/**
