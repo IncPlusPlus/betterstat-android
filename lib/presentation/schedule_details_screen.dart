@@ -78,8 +78,8 @@ class DetailsScreen extends StatelessWidget {
     );
   }
 
-  Widget timeDisplay(SetPointTimeTuple setPointTimeTuple,
-      BuildContext context) {
+  Widget timeDisplay(
+      SetPointTimeTuple setPointTimeTuple, BuildContext context) {
     return Padding(
       padding: _padding,
       child: Column(
@@ -89,10 +89,7 @@ class DetailsScreen extends StatelessWidget {
             child: Center(
               child: Text(
                 setPointTimeTuple.time.toString('hh:mm tt'),
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .headline5,
+                style: Theme.of(context).textTheme.headline5,
               ),
             ),
           ),

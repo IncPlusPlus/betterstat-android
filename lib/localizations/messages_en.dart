@@ -22,31 +22,44 @@ class MessageLookup extends MessageLookupByLibrary {
   static m0(task) => "Deleted \"${task}\"";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
-  static _notInlinedMessages(_) => <String, Function> {
-    "activeSchedules" : MessageLookupByLibrary.simpleMessage("Active Schedules"),
-    "addSchedule" : MessageLookupByLibrary.simpleMessage("Add Schedule"),
-    "appTitle" : MessageLookupByLibrary.simpleMessage("Betterstat"),
-    "cancel" : MessageLookupByLibrary.simpleMessage("Cancel"),
-    "clearCompleted" : MessageLookupByLibrary.simpleMessage("Clear completed"),
-    "completedSchedules" : MessageLookupByLibrary.simpleMessage("Completed Schedules"),
-    "delete" : MessageLookupByLibrary.simpleMessage("Delete"),
-    "deleteSchedule" : MessageLookupByLibrary.simpleMessage("Delete Schedule"),
-    "deleteScheduleConfirmation" : MessageLookupByLibrary.simpleMessage("Delete this schedule?"),
-    "editSchedule" : MessageLookupByLibrary.simpleMessage("Edit Schedule"),
-    "emptyScheduleError" : MessageLookupByLibrary.simpleMessage("Please enter some text"),
-    "filterSchedules" : MessageLookupByLibrary.simpleMessage("Filter Schedules"),
-    "markAllComplete" : MessageLookupByLibrary.simpleMessage("Mark all complete"),
-    "markAllIncomplete" : MessageLookupByLibrary.simpleMessage("Mark all incomplete"),
-    "newScheduleHint" : MessageLookupByLibrary.simpleMessage("What needs to be done?"),
-    "notesHint" : MessageLookupByLibrary.simpleMessage("Additional Notes..."),
-    "saveChanges" : MessageLookupByLibrary.simpleMessage("Save changes"),
-    "scheduleDeleted" : m0,
-    "scheduleDetails" : MessageLookupByLibrary.simpleMessage("Schedule Details"),
-    "schedules" : MessageLookupByLibrary.simpleMessage("Schedules"),
-    "showActive" : MessageLookupByLibrary.simpleMessage("Show Active"),
-    "showAll" : MessageLookupByLibrary.simpleMessage("Show All"),
-    "showCompleted" : MessageLookupByLibrary.simpleMessage("Show Completed"),
-    "stats" : MessageLookupByLibrary.simpleMessage("Stats"),
-    "undo" : MessageLookupByLibrary.simpleMessage("Undo")
-  };
+
+  static _notInlinedMessages(_) => <String, Function>{
+        "activeSchedules":
+            MessageLookupByLibrary.simpleMessage("Active Schedules"),
+        "addSchedule": MessageLookupByLibrary.simpleMessage("Add Schedule"),
+        "appTitle": MessageLookupByLibrary.simpleMessage("Betterstat"),
+        "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "clearCompleted":
+            MessageLookupByLibrary.simpleMessage("Clear completed"),
+        "completedSchedules":
+            MessageLookupByLibrary.simpleMessage("Completed Schedules"),
+        "delete": MessageLookupByLibrary.simpleMessage("Delete"),
+        "deleteSchedule":
+            MessageLookupByLibrary.simpleMessage("Delete Schedule"),
+        "deleteScheduleConfirmation":
+            MessageLookupByLibrary.simpleMessage("Delete this schedule?"),
+        "editSchedule": MessageLookupByLibrary.simpleMessage("Edit Schedule"),
+        "emptyScheduleError":
+            MessageLookupByLibrary.simpleMessage("Please enter some text"),
+        "filterSchedules":
+            MessageLookupByLibrary.simpleMessage("Filter Schedules"),
+        "markAllComplete":
+            MessageLookupByLibrary.simpleMessage("Mark all complete"),
+        "markAllIncomplete":
+            MessageLookupByLibrary.simpleMessage("Mark all incomplete"),
+        "newScheduleHint":
+            MessageLookupByLibrary.simpleMessage("What needs to be done?"),
+        "notesHint":
+            MessageLookupByLibrary.simpleMessage("Additional Notes..."),
+        "saveChanges": MessageLookupByLibrary.simpleMessage("Save changes"),
+        "scheduleDeleted": m0,
+        "scheduleDetails":
+            MessageLookupByLibrary.simpleMessage("Schedule Details"),
+        "schedules": MessageLookupByLibrary.simpleMessage("Schedules"),
+        "showActive": MessageLookupByLibrary.simpleMessage("Show Active"),
+        "showAll": MessageLookupByLibrary.simpleMessage("Show All"),
+        "showCompleted": MessageLookupByLibrary.simpleMessage("Show Completed"),
+        "stats": MessageLookupByLibrary.simpleMessage("Stats"),
+        "undo": MessageLookupByLibrary.simpleMessage("Undo")
+      };
 }

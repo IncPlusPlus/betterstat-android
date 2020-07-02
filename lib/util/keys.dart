@@ -1,18 +1,19 @@
 import 'package:flutter/widgets.dart';
 
 class BetterstatKeys {
-
   // Home Screens
   static const homeScreen = Key('__homeScreen__');
   static const addScheduleFab = Key('__addScheduleFab__');
   static const snackbar = Key('__snackbar__');
+
   static Key snackbarAction(String id) => Key('__snackbar_action_${id}__');
 
   // Schedules
   static const scheduleList = Key('__scheduleList__');
   static const schedulesLoading = Key('__schedulesLoading__');
   static final scheduleItem = (String id) => Key('ScheduleItem__${id}');
-  static final scheduleItemName = (String id) => Key('ScheduleItem__${id}__Name');
+  static final scheduleItemName =
+      (String id) => Key('ScheduleItem__${id}__Name');
 
   // Tabs
   static const tabs = Key('__tabs__');
