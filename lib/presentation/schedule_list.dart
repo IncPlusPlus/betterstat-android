@@ -119,22 +119,22 @@ class ScheduleList extends StatelessWidget {
     });
   }
 
-  void _removeSchedule(BuildContext context, Schedule schedule) {
-    onRemove(schedule);
-
-    Scaffold.of(context).showSnackBar(SnackBar(
-        key: BetterstatKeys.snackbar,
-        duration: Duration(seconds: 2),
-        content: Text(
-          BetterstatLocalizations.of(context).scheduleDeleted(schedule.name),
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-        ),
-        action: SnackBarAction(
-          label: BetterstatLocalizations.of(context).undo,
-          onPressed: () => onUndoRemove(schedule),
-        )));
-  }
+//  void _removeSchedule(BuildContext context, Schedule schedule) {
+//    onRemove(schedule);
+//
+//    Scaffold.of(context).showSnackBar(SnackBar(
+//        key: BetterstatKeys.snackbar,
+//        duration: Duration(seconds: 2),
+//        content: Text(
+//          BetterstatLocalizations.of(context).scheduleDeleted(schedule.name),
+//          maxLines: 1,
+//          overflow: TextOverflow.ellipsis,
+//        ),
+//        action: SnackBarAction(
+//          label: BetterstatLocalizations.of(context).undo,
+//          onPressed: () => onUndoRemove(schedule),
+//        )));
+//  }
 
   Future<void> _showMyDialog(BuildContext context, Object error,
       [StackTrace stackTrace]) async {
