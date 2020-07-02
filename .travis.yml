@@ -4,10 +4,9 @@ sudo: false
 before_install:
   - export FLUTTER_HOME="${HOME}/flutter"
   - export DART_HOME="$FLUTTER_HOME/bin/cache/dart-sdk/"
-  - export PATH="$FLUTTER_HOME/bin/flutter:$DART_HOME/bin:$PATH"
+  - export PATH="$FLUTTER_HOME/bin:$DART_HOME/bin:$PATH"
 install:
   - git clone https://github.com/flutter/flutter.git -b beta --depth 1 $FLUTTER_HOME
-  - ls $FLUTTER_HOME
   - flutter doctor
   - flutter packages get
 script:
