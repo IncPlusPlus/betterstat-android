@@ -1,5 +1,8 @@
 # betterstatmobile
 
+![Flutter](https://img.shields.io/badge/Framework-Flutter-3cc6fd?logo=flutter)
+![Dart](https://img.shields.io/badge/Language-Dart-0c458b?logo=dart)
+
 [![Build Status](https://travis-ci.com/IncPlusPlus/betterstat-mobile.svg?branch=master)](https://travis-ci.com/IncPlusPlus/betterstat-mobile)
 [![codecov](https://codecov.io/gh/IncPlusPlus/betterstat-mobile/branch/master/graph/badge.svg)](https://codecov.io/gh/IncPlusPlus/betterstat-mobile)
 
