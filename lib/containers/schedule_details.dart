@@ -12,7 +12,7 @@ class ScheduleDetails extends StoreConnector<AppState, AppActions, Schedule> {
 
   @override
   Widget build(BuildContext context, Schedule schedule, AppActions actions) {
-    return DetailsScreen(
+    return ScheduleDetailsScreen(
       schedule: schedule,
       onDelete: () => actions.deleteScheduleAction(schedule.id),
 //      toggleCompleted: (isComplete) {

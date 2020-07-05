@@ -1,7 +1,9 @@
 library app_state;
 
 import 'package:betterstatmobile/models/app_tab.dart';
+import 'package:betterstatmobile/models/day.dart';
 import 'package:betterstatmobile/models/schedule.dart';
+import 'package:betterstatmobile/models/thermostat.dart';
 import 'package:betterstatmobile/util/optional.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
@@ -13,8 +15,11 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
   static Serializer<AppState> get serializer => _$appStateSerializer;
 
   factory AppState([void Function(AppStateBuilder b) updates]) =>
-      _$AppState((b) => b
+      _$AppState((b) =>
+      b
         ..isLoading = false
+        ..thermostats = ListBuilder<Thermostat>([])
+        ..days = ListBuilder<Day>([])
         ..schedules = ListBuilder<Schedule>([])
         ..activeTab = AppTab.schedules
         ..update(updates));
@@ -24,7 +29,6 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
 
   factory AppState.loading() => AppState((b) => b..isLoading = true);
 
-//  List<Thermostat> get thermostats;
   AppState._();
 
   AppTab get activeTab;
@@ -37,7 +41,17 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
   @memoized
   int get numCompletedSelector => 10;
 
+  BuiltList<Thermostat> get thermostats;
+
+  BuiltList<Day> get days;
+
   BuiltList<Schedule> get schedules;
+
+  @memoized
+  List<Thermostat> get thermostatsSelector => thermostats.toList();
+
+  @memoized
+  List<Day> get daysSelector => days.toList();
 
   @memoized
   List<Schedule> get schedulesSelector => schedules.toList();

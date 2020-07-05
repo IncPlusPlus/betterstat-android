@@ -1,5 +1,5 @@
-import 'package:betterstatmobile/localization.dart';
-import 'package:betterstatmobile/models/models.dart';
+import 'package:betterstatmobile/generated/l10n.dart';
+import 'package:betterstatmobile/models/day.dart';
 import 'package:betterstatmobile/settings.dart';
 import 'package:betterstatmobile/util/form_extras.dart';
 import 'package:betterstatmobile/util/keys.dart';
@@ -11,20 +11,21 @@ const _padding = EdgeInsets.all(16.0);
 
 typedef OnSaveCallback = void Function(String task, String note);
 
-class AddEditScreen extends StatefulWidget {
+//TODO: Migrate this away from using the term "schedule" to the term "day". This is due to a refactor of the Day type
+class AddEditDayScreen extends StatefulWidget {
   final bool isEditing;
   final Function(String name, List<SetPointTimeTuple> times) onSave;
-  final Schedule schedule;
+  final Day day;
 
-  AddEditScreen(
-      {Key key, @required this.onSave, @required this.isEditing, this.schedule})
-      : super(key: key ?? BetterstatKeys.addScheduleScreen);
+  AddEditDayScreen(
+      {Key key, @required this.onSave, @required this.isEditing, this.day})
+      : super(key: key ?? BetterstatKeys.addDayScreen);
 
   @override
-  _AddEditScreenState createState() => _AddEditScreenState();
+  _AddEditDayScreenState createState() => _AddEditDayScreenState();
 }
 
-class _AddEditScreenState extends State<AddEditScreen> {
+class _AddEditDayScreenState extends State<AddEditDayScreen> {
   static final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   String _name;
@@ -34,13 +35,13 @@ class _AddEditScreenState extends State<AddEditScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final localizations = BetterstatLocalizations.of(context);
+    final localizations = S.of(context);
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          isEditing ? localizations.editSchedule : localizations.addSchedule,
+          isEditing ? localizations.editDay : localizations.addDay,
         ),
       ),
       body: Padding(
@@ -49,16 +50,18 @@ class _AddEditScreenState extends State<AddEditScreen> {
           key: _formKey,
           child: Column(children: [
             TextFormField(
-              initialValue: isEditing ? widget.schedule.name : '',
+              initialValue: isEditing ? widget.day.name : '',
               key: BetterstatKeys.nameField,
               autofocus: !isEditing,
               style: textTheme.headline5,
               decoration: InputDecoration(
-                hintText: localizations.newScheduleHint,
+                hintText: localizations.newDayHint,
               ),
               validator: (val) {
-                return val.trim().isEmpty
-                    ? localizations.emptyScheduleError
+                return val
+                    .trim()
+                    .isEmpty
+                    ? localizations.emptyTextFieldError
                     : null;
               },
               onSaved: (value) => _name = value,
@@ -69,10 +72,10 @@ class _AddEditScreenState extends State<AddEditScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         key: isEditing
-            ? BetterstatKeys.saveScheduleFab
-            : BetterstatKeys.saveNewSchedule,
+            ? BetterstatKeys.saveDayFab
+            : BetterstatKeys.saveNewDay,
         tooltip:
-            isEditing ? localizations.saveChanges : localizations.addSchedule,
+        isEditing ? localizations.saveChanges : localizations.addDay,
         child: Icon(isEditing ? Icons.check : Icons.add),
         onPressed: () {
           if (_formKey.currentState.validate()) {
@@ -91,7 +94,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
     super.initState();
     //We want copies of the original tuples which we will then replace upon
     // submitting the form.
-    _times = List.of(widget.schedule.times);
+    _times = List.of(widget.day.times);
   }
 
   Widget setPointDisplay(SetPointTimeTuple setPointTimeTuple) {
@@ -100,9 +103,6 @@ class _AddEditScreenState extends State<AddEditScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // This is the widget that accepts text input. In this case, it
-          // accepts numbers and calls the onChanged property on update.
-          // You can read more about it here: https://flutter.io/text-input
           Center(
               child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -161,7 +161,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
 
   Widget _buildPanel() {
     return ListView.builder(
-      itemCount: widget.schedule.times.length,
+      itemCount: widget.day.times.length,
       itemBuilder: (context, index) {
         return Row(
           mainAxisSize: MainAxisSize.min,
@@ -169,11 +169,11 @@ class _AddEditScreenState extends State<AddEditScreen> {
             Expanded(
                 child: Padding(
                     padding: _padding,
-                    child: timeDisplay(widget.schedule.times[index]))),
+                    child: timeDisplay(widget.day.times[index]))),
             Expanded(
                 child: Padding(
                     padding: _padding,
-                    child: setPointDisplay(widget.schedule.times[index])))
+                    child: setPointDisplay(widget.day.times[index])))
           ],
         );
       },

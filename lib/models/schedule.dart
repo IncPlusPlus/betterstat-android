@@ -1,10 +1,9 @@
 library scheudle;
 
-import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:time_machine/time_machine.dart';
-import 'package:time_machine/time_machine_text_patterns.dart';
+
+import 'day.dart';
 
 part 'schedule.g.dart';
 
@@ -17,7 +16,13 @@ abstract class Schedule implements Built<Schedule, ScheduleBuilder> {
     final builder = ScheduleBuilder()
       ..id = ''
       ..name = ''
-      ..times = BuiltList<SetPointTimeTuple>([]).toBuilder()
+      ..sunday = null
+      ..monday = null
+      ..tuesday = null
+      ..wednesday = null
+      ..thursday = null
+      ..friday = null
+      ..saturday = null
       ..update(updates);
 
     return builder.build();
@@ -29,82 +34,17 @@ abstract class Schedule implements Built<Schedule, ScheduleBuilder> {
 
   String get name;
 
-  BuiltList<SetPointTimeTuple> get times;
-}
+  Day get sunday;
 
-abstract class SetPointTimeTuple
-    implements Built<SetPointTimeTuple, SetPointTimeTupleBuilder> {
-  @BuiltValueSerializer(custom: true)
-  static Serializer<SetPointTimeTuple> get serializer =>
-      SetPointTimeTupleSerializer();
+  Day get monday;
 
-  factory SetPointTimeTuple([void Function(SetPointTimeTupleBuilder) updates]) =
-      _$SetPointTimeTuple;
+  Day get tuesday;
 
-  factory SetPointTimeTuple.builder(
-      [void Function(SetPointTimeTupleBuilder) updates]) {
-    final builder = SetPointTimeTupleBuilder()
-      ..setPoint = 0.0
-      ..time = null
-      ..update(updates);
+  Day get wednesday;
 
-    return builder.build();
-  }
+  Day get thursday;
 
-  SetPointTimeTuple._();
+  Day get friday;
 
-  double get setPoint;
-
-  LocalTime get time;
-}
-
-class SetPointTimeTupleSerializer
-    implements StructuredSerializer<SetPointTimeTuple> {
-  @override
-  Iterable<Type> get types => [SetPointTimeTuple, _$SetPointTimeTuple];
-
-  @override
-  String get wireName => 'SetPointTimeTuple';
-
-  @override
-  SetPointTimeTuple deserialize(Serializers serializers, Iterable serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    // Initialize an empty builder
-    final result = SetPointTimeTupleBuilder();
-
-    // Create an `Iterator` from the serialized data received
-    final iterator = serialized.iterator;
-    // Loop the iterator for each key
-    while (iterator.moveNext()) {
-      final key = iterator.current as String;
-      iterator.moveNext();
-      final dynamic value = iterator.current;
-      // for each key, assign the correct value to the builder
-      switch (key) {
-        case 'setPoint':
-          result.setPoint = serializers.deserialize(value,
-              specifiedType: const FullType(double)) as double;
-          break;
-        case 'time':
-          result.time =
-              LocalTimePattern.extendedIso.parse(value).getValueOrThrow();
-          break;
-      }
-    }
-    return result.build();
-  }
-
-  @override
-  Iterable serialize(Serializers serializers, SetPointTimeTuple object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
-      'setPoint',
-      serializers.serialize(object.setPoint,
-          specifiedType: const FullType(double)),
-      'time',
-      LocalTimePattern.extendedIso.format(object.time),
-    ];
-
-    return result;
-  }
+  Day get saturday;
 }

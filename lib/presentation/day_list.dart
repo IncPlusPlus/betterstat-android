@@ -5,10 +5,10 @@
 import 'dart:async';
 
 import 'package:betterstatmobile/containers/app_loading.dart';
-import 'package:betterstatmobile/containers/schedule_details.dart';
+import 'package:betterstatmobile/containers/day_details.dart';
 import 'package:betterstatmobile/generated/l10n.dart';
-import 'package:betterstatmobile/models/models.dart';
-import 'package:betterstatmobile/presentation/schedule_item.dart';
+import 'package:betterstatmobile/models/day.dart';
+import 'package:betterstatmobile/presentation/day_item.dart';
 import 'package:betterstatmobile/util/keys.dart';
 import 'package:betterstatmobile/util/specialized_completer.dart';
 import 'package:flutter/foundation.dart';
@@ -17,22 +17,22 @@ import 'package:flutter/material.dart';
 final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
     GlobalKey<RefreshIndicatorState>();
 
-class ScheduleList extends StatelessWidget {
-  final List<Schedule> schedules;
-  final Function(Schedule) onRemove;
-  final Function(Schedule) onUndoRemove;
+class DayList extends StatelessWidget {
+  final List<Day> days;
+  final Function(Day) onRemove;
+  final Function(Day) onUndoRemove;
   final Future<void> Function(SpecializedCompleterTuple) onRefresh;
 
-  ScheduleList({
-    @required this.schedules,
+  DayList({
+    @required this.days,
     @required this.onRemove,
     @required this.onUndoRemove,
     @required this.onRefresh,
-  }) : super(key: BetterstatKeys.scheduleList);
+  }) : super(key: BetterstatKeys.dayList);
 
   void afterBuild() {
-    if (schedules.isEmpty) {
-      //When the list is first displayed, it won't be initialized with any results. I could call "store.actions.fetchSchedulesAction(SpecializedCompleterTuple());"
+    if (days.isEmpty) {
+      //When the list is first displayed, it won't be initialized with any results. I could call "store.actions.fetchDaysAction(SpecializedCompleterTuple());"
       // in `main()` but then I wouldn't have a way to handle any potential errors that may result from that. Instead, I just check if the list is empty.
       //It'll be empty in the case that the API call failed in some way.
       _refreshIndicatorKey.currentState.show();
@@ -55,14 +55,14 @@ class ScheduleList extends StatelessWidget {
         },
         child: Container(
           child: ListView.builder(
-            key: BetterstatKeys.scheduleList,
-            itemCount: schedules.length,
+            key: BetterstatKeys.dayList,
+            itemCount: days.length,
             itemBuilder: (BuildContext context, int index) {
-              final schedule = schedules[index];
+              final day = days[index];
 
-              return ScheduleItem(
-                schedule: schedule,
-                onTap: () => {_onScheduleTap(context, schedule)},
+              return DayItem(
+                day: day,
+                onTap: () => {_onDayTap(context, day)},
               );
             },
           ),
@@ -86,32 +86,30 @@ class ScheduleList extends StatelessWidget {
     return completer.future;
   }
 
-  void _onScheduleTap(BuildContext context, Schedule schedule) {
+  void _onDayTap(BuildContext context, Day day) {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (_) {
-          return ScheduleDetails(
-            id: schedule.id,
+          return DayDetails(
+            id: day.id,
           );
         },
       ),
-    ).then((removedSchedule) {
-      if (removedSchedule != null) {
+    ).then((removedDay) {
+      if (removedDay != null) {
         Scaffold.of(context).showSnackBar(
           SnackBar(
             key: BetterstatKeys.snackbar,
             duration: Duration(seconds: 2),
             content: Text(
-              S.of(context).itemDeleted(schedule.name),
+              S.of(context).itemDeleted(day.name),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
             action: SnackBarAction(
-              label: S
-                  .of(context)
-                  .undo,
+              label: S.of(context).undo,
               onPressed: () {
-                onUndoRemove(schedule);
+                onUndoRemove(day);
               },
             ),
           ),
@@ -120,20 +118,20 @@ class ScheduleList extends StatelessWidget {
     });
   }
 
-//  void _removeSchedule(BuildContext context, Schedule schedule) {
-//    onRemove(schedule);
+//  void _removeDay(BuildContext context, Day day) {
+//    onRemove(day);
 //
 //    Scaffold.of(context).showSnackBar(SnackBar(
 //        key: BetterstatKeys.snackbar,
 //        duration: Duration(seconds: 2),
 //        content: Text(
-//          S.of(context).scheduleDeleted(schedule.name),
+//          S.of(context).dayDeleted(day.name),
 //          maxLines: 1,
 //          overflow: TextOverflow.ellipsis,
 //        ),
 //        action: SnackBarAction(
 //          label: S.of(context).undo,
-//          onPressed: () => onUndoRemove(schedule),
+//          onPressed: () => onUndoRemove(day),
 //        )));
 //  }
 

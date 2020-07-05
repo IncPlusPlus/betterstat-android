@@ -1,26 +1,26 @@
 import 'package:betterstatmobile/actions/actions.dart';
 import 'package:betterstatmobile/models/models.dart';
-import 'package:betterstatmobile/repository/SchedulesRepository.dart';
-import 'package:betterstatmobile/repository/WebRepository.dart';
+import 'package:betterstatmobile/repository/generic_future_repository.dart';
+import 'package:betterstatmobile/repository/schedule_repository.dart';
 import 'package:betterstatmobile/util/specialized_completer.dart';
 import 'package:built_redux/built_redux.dart';
 
 MiddlewareHandler<AppState, AppStateBuilder, AppActions, T>
-    createDeleteSchedule<T>(SchedulesRepository repository) {
+    createDeleteSchedule<T>(ScheduleRepository repository) {
   return (MiddlewareApi<AppState, AppStateBuilder, AppActions> api,
       ActionHandler next, Action<T> action) {
     next(action);
 
-    return repository.deleteSchedule(action.payload as String);
+    return repository.deleteById(action.payload as String);
   };
 }
 
 MiddlewareHandler<AppState, AppStateBuilder, AppActions, T>
-    createFetchSchedules<T>(SchedulesRepository repository) {
+createFetchSchedules<T>(ScheduleRepository repository) {
   return (MiddlewareApi<AppState, AppStateBuilder, AppActions> api,
       ActionHandler next, Action<T> action) {
     var loadingCallback = action.payload as SpecializedCompleterTuple;
-    repository.loadSchedules().then((schedules) {
+    repository.getAll().then((schedules) {
       loadingCallback.statusCompleter.complete();
       return api.actions.loadSchedulesSuccess(schedules);
     }).catchError((Object error, [StackTrace stackTrace]) {
@@ -32,18 +32,19 @@ MiddlewareHandler<AppState, AppStateBuilder, AppActions, T>
 }
 
 MiddlewareHandler<AppState, AppStateBuilder, AppActions, T>
-    createSaveSchedule<T>(SchedulesRepository repository) {
+createSaveSchedule<T>(ScheduleRepository repository) {
   return (MiddlewareApi<AppState, AppStateBuilder, AppActions> api,
       ActionHandler next, Action<T> action) {
     next(action);
 
-    repository.createSchedule(action.payload as Schedule);
+    repository.createById(action.payload as Schedule);
   };
 }
 
 Middleware<AppState, AppStateBuilder, AppActions>
     createStoreSchedulesMiddleware([
-  SchedulesRepository repository = const WebRepository(),
+  GenericFutureRepository<Schedule, String> repository =
+  const ScheduleRepository(),
 ]) {
   return (MiddlewareBuilder<AppState, AppStateBuilder, AppActions>()
         ..add(AppActionsNames.fetchSchedulesAction,
@@ -60,13 +61,13 @@ Middleware<AppState, AppStateBuilder, AppActions>
 }
 
 MiddlewareHandler<AppState, AppStateBuilder, AppActions, T>
-    createUpdateSchedule<T>(SchedulesRepository repository) {
+createUpdateSchedule<T>(ScheduleRepository repository) {
   return (MiddlewareApi<AppState, AppStateBuilder, AppActions> api,
       ActionHandler next, Action<T> action) {
     next(action);
     var pl = action.payload as UpdateScheduleActionPayload;
 
-    repository.saveSchedule(pl.updatedSchedule, pl.id);
+    repository.saveById(pl.updatedSchedule, pl.id);
   };
 }
 

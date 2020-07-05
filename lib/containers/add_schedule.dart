@@ -1,7 +1,7 @@
 import 'package:betterstatmobile/actions/actions.dart';
+import 'package:betterstatmobile/models/day.dart';
 import 'package:betterstatmobile/models/models.dart';
-import 'package:betterstatmobile/presentation/add_edit_screen.dart';
-import 'package:built_collection/built_collection.dart';
+import 'package:betterstatmobile/presentation/add_edit_schedule_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_built_redux/flutter_built_redux.dart';
 
@@ -10,13 +10,20 @@ class AddSchedule extends StoreConnector<AppState, AppActions, Null> {
 
   @override
   Widget build(BuildContext context, Null ignored, AppActions actions) {
-    return AddEditScreen(
+    return AddEditScheduleScreen(
         isEditing: false,
-        onSave: (String name, List<SetPointTimeTuple> times) {
+        onSave: (String name, Day sunday, Day monday, Day tuesday,
+            Day wednesday, Day thursday, Day friday, Day saturday) {
           actions.addScheduleAction(Schedule.builder((b) {
             return b
               ..name = name
-              ..times = BuiltList<SetPointTimeTuple>(times).toBuilder();
+              ..sunday = sunday.toBuilder()
+              ..monday = monday.toBuilder()
+              ..tuesday = tuesday.toBuilder()
+              ..wednesday = wednesday.toBuilder()
+              ..thursday = thursday.toBuilder()
+              ..friday = friday.toBuilder()
+              ..saturday = saturday.toBuilder();
           }));
         });
   }

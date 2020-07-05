@@ -1,6 +1,7 @@
 import 'package:betterstatmobile/actions/actions.dart';
 import 'package:betterstatmobile/containers/add_schedule.dart';
-import 'package:betterstatmobile/localization.dart';
+import 'package:betterstatmobile/generated/l10n.dart';
+import 'package:betterstatmobile/middleware/store_days_middleware.dart';
 import 'package:betterstatmobile/middleware/store_schedules_middleware.dart';
 import 'package:betterstatmobile/models/app_state.dart';
 import 'package:betterstatmobile/presentation/home_screen.dart';
@@ -12,12 +13,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_built_redux/flutter_built_redux.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'containers/add_day.dart';
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
   runApp(BetterstatApp());
 }
 
+///To rebuild or edit the translations, follow the directions at these two links
+///https://marketplace.visualstudio.com/items?itemName=localizely.flutter-intl
+///https://localizely.com/flutter-localization-workflow/
+///One could use Loco or Localizely
 class BetterstatApp extends StatefulWidget {
   final store = Store<AppState, AppStateBuilder, AppActions>(
     reducerBuilder.build(),
@@ -25,6 +32,7 @@ class BetterstatApp extends StatefulWidget {
     AppActions(),
     middleware: [
       createStoreSchedulesMiddleware(),
+      createStoreDaysMiddleware(),
     ],
   );
 
@@ -46,25 +54,20 @@ class BetterstatAppState extends State<BetterstatApp> {
           title: 'Betterstat',
           theme: ThemeData.light(),
           localizationsDelegates: [
-            const BetterstatLocalizationsDelegate(),
+            S.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
           ],
-          supportedLocales: [
-            // The order of this list matters. By default, if the
-            // device's locale doesn't exactly match a locale in
-            // supportedLocales then the first locale in
-            // supportedLocales with a matching
-            // Locale.languageCode is used. If that fails then the
-            // first locale in supportedLocales is used.
-            const Locale('en'),
-          ],
+          supportedLocales: S.delegate.supportedLocales,
           routes: {
             BetterstatRoutes.home: (context) {
               return HomeScreen(key: BetterstatKeys.homeScreen);
             },
             BetterstatRoutes.addSchedule: (context) {
               return AddSchedule();
+            },
+            BetterstatRoutes.addDay: (context) {
+              return AddDay();
             },
           }),
     );

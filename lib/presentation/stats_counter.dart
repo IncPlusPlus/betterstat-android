@@ -1,5 +1,5 @@
 import 'package:betterstatmobile/containers/app_loading.dart';
-import 'package:betterstatmobile/localization.dart';
+import 'package:betterstatmobile/generated/l10n.dart';
 import 'package:betterstatmobile/util/keys.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -30,7 +30,7 @@ class StatsCounter extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(bottom: 8.0),
                     child: Text(
-                      BetterstatLocalizations.of(context).completedSchedules,
+                      S.of(context).completedSchedules,
                       style: Theme.of(context).textTheme.headline6,
                     ),
                   ),
@@ -45,8 +45,13 @@ class StatsCounter extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(bottom: 8.0),
                     child: Text(
-                      BetterstatLocalizations.of(context).activeSchedules,
-                      style: Theme.of(context).textTheme.headline6,
+                      S
+                          .of(context)
+                          .activeSchedules,
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .headline6,
                     ),
                   ),
                   Padding(

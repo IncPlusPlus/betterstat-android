@@ -19,13 +19,14 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static m0(task) => "Deleted \"${task}\"";
+  static m0(name) => "Deleted \"${name}\"";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
 
   static _notInlinedMessages(_) => <String, Function>{
         "activeSchedules":
             MessageLookupByLibrary.simpleMessage("Active Schedules"),
+        "addDay": MessageLookupByLibrary.simpleMessage("Add Day"),
         "addSchedule": MessageLookupByLibrary.simpleMessage("Add Schedule"),
         "appTitle": MessageLookupByLibrary.simpleMessage("Betterstat"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
@@ -33,26 +34,32 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Clear completed"),
         "completedSchedules":
             MessageLookupByLibrary.simpleMessage("Completed Schedules"),
+        "dayDetails": MessageLookupByLibrary.simpleMessage("Day Details"),
+        "days": MessageLookupByLibrary.simpleMessage("Days"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
+        "deleteDay": MessageLookupByLibrary.simpleMessage("Delete Day"),
+        "deleteDayConfirmation":
+            MessageLookupByLibrary.simpleMessage("Delete this day?"),
         "deleteSchedule":
             MessageLookupByLibrary.simpleMessage("Delete Schedule"),
         "deleteScheduleConfirmation":
             MessageLookupByLibrary.simpleMessage("Delete this schedule?"),
+        "editDay": MessageLookupByLibrary.simpleMessage("Edit Day"),
         "editSchedule": MessageLookupByLibrary.simpleMessage("Edit Schedule"),
-        "emptyScheduleError":
+        "emptyTextFieldError":
             MessageLookupByLibrary.simpleMessage("Please enter some text"),
         "filterSchedules":
             MessageLookupByLibrary.simpleMessage("Filter Schedules"),
+        "itemDeleted": m0,
         "markAllComplete":
             MessageLookupByLibrary.simpleMessage("Mark all complete"),
         "markAllIncomplete":
             MessageLookupByLibrary.simpleMessage("Mark all incomplete"),
-        "newScheduleHint":
-            MessageLookupByLibrary.simpleMessage("What needs to be done?"),
-        "notesHint":
-            MessageLookupByLibrary.simpleMessage("Additional Notes..."),
+        "newDayHint": MessageLookupByLibrary.simpleMessage(
+            "What should this day be named?"),
+        "newScheduleHint": MessageLookupByLibrary.simpleMessage(
+            "What should this schedule be named?"),
         "saveChanges": MessageLookupByLibrary.simpleMessage("Save changes"),
-        "scheduleDeleted": m0,
         "scheduleDetails":
             MessageLookupByLibrary.simpleMessage("Schedule Details"),
         "schedules": MessageLookupByLibrary.simpleMessage("Schedules"),

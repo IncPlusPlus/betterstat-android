@@ -1,30 +1,30 @@
-import 'package:betterstatmobile/models/models.dart';
+import 'package:betterstatmobile/models/day.dart';
 import 'package:betterstatmobile/util/keys.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class ScheduleItem extends StatelessWidget {
+class DayItem extends StatelessWidget {
   final GestureTapCallback onTap;
-  final Schedule schedule;
+  final Day day;
 
-  ScheduleItem({
+  DayItem({
     @required this.onTap,
-    @required this.schedule,
-  }) : super(key: BetterstatKeys.scheduleItem(schedule.id));
+    @required this.day,
+  }) : super(key: BetterstatKeys.dayItem(day.id));
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       onTap: onTap,
-      leading: Icon(Icons.schedule),
+      leading: Icon(Icons.view_day),
       title: Text(
-        schedule.name,
-        key: BetterstatKeys.scheduleItemName(schedule.id),
+        day.name,
+        key: BetterstatKeys.dayItemName(day.id),
         style: Theme.of(context).textTheme.headline6,
       ),
       subtitle: Text(
-        'id: ${schedule.id}',
-        key: BetterstatKeys.scheduleItem(schedule.id),
+        'id: ${day.id}',
+        key: BetterstatKeys.dayItem(day.id),
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
         style: Theme.of(context).textTheme.subtitle1,

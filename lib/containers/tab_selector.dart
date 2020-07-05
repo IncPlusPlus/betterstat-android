@@ -1,5 +1,5 @@
 import 'package:betterstatmobile/actions/actions.dart';
-import 'package:betterstatmobile/localization.dart';
+import 'package:betterstatmobile/generated/l10n.dart';
 import 'package:betterstatmobile/models/models.dart';
 import 'package:betterstatmobile/util/keys.dart';
 import 'package:flutter/material.dart';
@@ -28,8 +28,8 @@ class TabSelector extends StoreConnector<AppState, AppActions, AppTab> {
                 : BetterstatKeys.scheduleTab,
           ),
           title: Text(tab == AppTab.stats
-              ? BetterstatLocalizations.of(context).stats
-              : BetterstatLocalizations.of(context).schedules),
+              ? S.of(context).stats
+              : S.of(context).schedules),
         );
       }).toList(),
     );
