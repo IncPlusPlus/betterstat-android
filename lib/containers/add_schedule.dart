@@ -25,6 +25,9 @@ class AddSchedule extends StoreConnector<AppState, AppActions, Null> {
               ..friday = friday.toBuilder()
               ..saturday = saturday.toBuilder();
           }));
+          actions.fetchDaysAction();
+
+          actions.fetchDaysAction();
         });
   }
 

@@ -56,7 +56,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "newScheduleHint": "What should this schedule be named?",
+  "newScheduleHint": "Schedule name",
   "@newScheduleHint": {
     "type": "text",
     "placeholders": {}

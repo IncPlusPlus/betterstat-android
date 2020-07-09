@@ -40,11 +40,21 @@ Future<List<Schedule>> getSchedules() async {
 
 Future<Schedule> postSchedule(Schedule schedule) async {
   final uri = Uri.https(apiUrl, '$scheduleEndpoint');
-  final response = await httpClient.put(uri,
+  final response = await httpClient.post(uri,
       headers: applicationJsonHeader,
       body: jsonEncode(serialize<Schedule>(schedule)));
-  expectResponseCode(201, response);
+  //TODO: Should be 201
+  expectResponseCode(200, response);
   return deserialize<Schedule>(jsonDecode(response.body));
+}
+
+Future<void> setDayOfWeek(
+    String scheduleId, DayOfWeek dayOfWeek, String dayId) async {
+  final uri =
+      Uri.https(apiUrl, '$scheduleEndpoint/$scheduleId/set${dayOfWeek.name}');
+  final response =
+      await httpClient.put(uri, headers: applicationJsonHeader, body: dayId);
+  expectResponseCode(200, response);
 }
 
 Future<List<Schedule>> _parseSchedules(String responseBody) async {

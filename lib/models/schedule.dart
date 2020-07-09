@@ -1,5 +1,6 @@
 library scheudle;
 
+import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -47,4 +48,22 @@ abstract class Schedule implements Built<Schedule, ScheduleBuilder> {
   Day get friday;
 
   Day get saturday;
+}
+
+class DayOfWeek extends EnumClass {
+  static const DayOfWeek Sunday = _$Sunday;
+  static const DayOfWeek Monday = _$Monday;
+  static const DayOfWeek Tuesday = _$Tuesday;
+  static const DayOfWeek Wednesday = _$Wednesday;
+  static const DayOfWeek Thursday = _$Thursday;
+  static const DayOfWeek Friday = _$Friday;
+  static const DayOfWeek Saturday = _$Saturday;
+
+  static Serializer<DayOfWeek> get serializer => _$dayOfWeekSerializer;
+
+  const DayOfWeek._(String name) : super(name);
+
+  static BuiltSet<DayOfWeek> get values => _$dayOfWeekValues;
+
+  static DayOfWeek valueOf(String name) => _$dayOfWeekValueOf(name);
 }

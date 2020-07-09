@@ -12,6 +12,11 @@ class ScheduleRepository implements GenericFutureRepository<Schedule, String> {
     return postSchedule(schedule);
   }
 
+  Future<void> setDayOfWeekToDay(
+      String scheduleId, DayOfWeek dayOfWeek, String dayId) {
+    return setDayOfWeek(scheduleId, dayOfWeek, dayId);
+  }
+
   @override
   Future<Schedule> deleteById(String id) {
     return deleteSchedule(id);

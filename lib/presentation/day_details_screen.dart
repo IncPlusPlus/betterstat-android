@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:betterstatmobile/containers/edit_day.dart';
 import 'package:betterstatmobile/generated/l10n.dart';
 import 'package:betterstatmobile/models/day.dart';
@@ -37,7 +38,23 @@ class DayDetailsScreen extends StatelessWidget {
           )
         ],
       ),
-      body: _buildPanel(context),
+      body: Padding(
+        padding: _padding,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            AutoSizeText(
+              day.name,
+              style: TextStyle(
+                fontSize: 50,
+              ),
+              maxLines: 3,
+              textAlign: TextAlign.center,
+            ),
+            Expanded(child: buildDayDetailsScreen(context, day))
+          ],
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         key: BetterstatKeys.editDayFab,
         tooltip: localizations.editDay,
@@ -56,55 +73,60 @@ class DayDetailsScreen extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget setPointDisplay(
-      SetPointTimeTuple setPointTimeTuple, BuildContext context) {
-    return Padding(
-      padding: _padding,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          // This is the widget that accepts text input. In this case, it
-          // accepts numbers and calls the onChanged property on update.
-          // You can read more about it here: https://flutter.io/text-input
-          Center(
-              child: Text(
-            getPrefTemp(setPointTimeTuple.setPoint).toString() +
-                ' °${getPreferredTempUnit().toString().substring(getPreferredTempUnit().toString().indexOf('.') + 1)}',
-            style: Theme.of(context).textTheme.headline5,
-          )),
-        ],
-      ),
-    );
-  }
+Widget setPointDisplay(
+    SetPointTimeTuple setPointTimeTuple, BuildContext context) {
+  return Padding(
+    padding: _padding,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        // This is the widget that accepts text input. In this case, it
+        // accepts numbers and calls the onChanged property on update.
+        // You can read more about it here: https://flutter.io/text-input
+        Center(
+            child: Text(
+          getPrefTemp(setPointTimeTuple.setPoint).toString() +
+              ' °${getPreferredTempUnit().toString().substring(getPreferredTempUnit().toString().indexOf('.') + 1)}',
+          style: Theme.of(context).textTheme.headline5,
+        )),
+      ],
+    ),
+  );
+}
 
-  Widget timeDisplay(
-      SetPointTimeTuple setPointTimeTuple, BuildContext context) {
-    return Padding(
-      padding: _padding,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          InkWell(
-            child: Center(
-              child: Text(
-                setPointTimeTuple.time.toString('hh:mm tt'),
-                style: Theme.of(context).textTheme.headline5,
-              ),
+Widget timeDisplay(SetPointTimeTuple setPointTimeTuple, BuildContext context) {
+  return Padding(
+    padding: _padding,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        InkWell(
+          child: Center(
+            child: Text(
+              setPointTimeTuple.time.toString('hh:mm tt'),
+              style: Theme
+                  .of(context)
+                  .textTheme
+                  .headline5,
             ),
           ),
-        ],
-      ),
-    );
-  }
+        ),
+      ],
+    ),
+  );
+}
 
-  Widget _buildPanel(BuildContext context) {
-    return ListView.builder(
-      itemCount: day.times.length,
-      itemBuilder: (context, index) {
-        return Row(
+Widget buildDayDetailsScreen(BuildContext context, Day day) {
+  return ListView.builder(
+    itemCount: day.times.length,
+    itemBuilder: (context, index) {
+      return Card(
+        elevation: 2,
+        child: Row(
           mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
+          children: [
             Expanded(
                 child: Padding(
                     padding: _padding,
@@ -112,10 +134,10 @@ class DayDetailsScreen extends StatelessWidget {
             Expanded(
                 child: Padding(
                     padding: _padding,
-                    child: setPointDisplay(day.times[index], context)))
+                    child: setPointDisplay(day.times[index], context))),
           ],
-        );
-      },
-    );
-  }
+        ),
+      );
+    },
+  );
 }

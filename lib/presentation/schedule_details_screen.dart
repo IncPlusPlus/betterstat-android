@@ -1,5 +1,7 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:betterstatmobile/containers/edit_schedule.dart';
 import 'package:betterstatmobile/generated/l10n.dart';
+import 'package:betterstatmobile/models/day.dart';
 import 'package:betterstatmobile/models/models.dart';
 import 'package:betterstatmobile/util/keys.dart';
 import 'package:flutter/foundation.dart';
@@ -36,7 +38,7 @@ class ScheduleDetailsScreen extends StatelessWidget {
           )
         ],
       ),
-      body: _buildPanel(context),
+      body: _buildPanel(),
       floatingActionButton: FloatingActionButton(
         key: BetterstatKeys.editScheduleFab,
         tooltip: localizations.editSchedule,
@@ -56,48 +58,79 @@ class ScheduleDetailsScreen extends StatelessWidget {
     );
   }
 
-//  Widget setPointDisplay(
-//      SetPointTimeTuple setPointTimeTuple, BuildContext context) {
-//    return Padding(
-//      padding: _padding,
-//      child: Column(
-//        crossAxisAlignment: CrossAxisAlignment.stretch,
-//        children: [
-//          // This is the widget that accepts text input. In this case, it
-//          // accepts numbers and calls the onChanged property on update.
-//          // You can read more about it here: https://flutter.io/text-input
-//          Center(
-//              child: Text(
-//            getPrefTemp(setPointTimeTuple.setPoint).toString() +
-//                ' °${getPreferredTempUnit().toString().substring(getPreferredTempUnit().toString().indexOf('.') + 1)}',
-//            style: Theme.of(context).textTheme.headline5,
-//          )),
-//        ],
-//      ),
-//    );
-//  }
-//
-//  Widget timeDisplay(
-//      SetPointTimeTuple setPointTimeTuple, BuildContext context) {
-//    return Padding(
-//      padding: _padding,
-//      child: Column(
-//        crossAxisAlignment: CrossAxisAlignment.stretch,
-//        children: [
-//          InkWell(
-//            child: Center(
-//              child: Text(
-//                setPointTimeTuple.time.toString('hh:mm tt'),
-//                style: Theme.of(context).textTheme.headline5,
-//              ),
-//            ),
-//          ),
-//        ],
-//      ),
-//    );
-//  }
+  Widget dayDisplay(int dayOfWeek) {
+    Day day;
+    String dayOfWeekName;
+    //Choose which of the local Day variables (denoted with an underscore) to assign to the Day we're constructing a Widget with
+    switch (dayOfWeek) {
+      case 0:
+        day = schedule.sunday;
+        dayOfWeekName = 'Sunday';
+        break;
+      case 1:
+        day = schedule.monday;
+        dayOfWeekName = 'Monday';
+        break;
+      case 2:
+        day = schedule.tuesday;
+        dayOfWeekName = 'Tuesday';
+        break;
+      case 3:
+        day = schedule.wednesday;
+        dayOfWeekName = 'Wednesday';
+        break;
+      case 4:
+        day = schedule.thursday;
+        dayOfWeekName = 'Thursday';
+        break;
+      case 5:
+        day = schedule.friday;
+        dayOfWeekName = 'Friday';
+        break;
+      case 6:
+        day = schedule.saturday;
+        dayOfWeekName = 'Saturday';
+        break;
+    }
+    return Row(
+      children: [
+        Expanded(
+          child: AutoSizeText(
+            dayOfWeekName,
+            style: TextStyle(fontSize: 20),
+            maxLines: 1,
+            overflowReplacement: Text('Sorry String too long'),
+          ),
+        ),
+        Spacer(),
+        Expanded(
+          child: AutoSizeText(
+            day.name,
+            style: TextStyle(fontSize: 30),
+            maxLines: 2,
+            overflowReplacement: Text('Name too long'),
+          ),
+        ),
+      ],
+    );
+    //return a Widget involving the particular Day we chose
+  }
 
-  Widget _buildPanel(BuildContext context) {
-    return ListView();
+  Widget _buildPanel() {
+    return Padding(
+      padding: _padding,
+      child: ListView.builder(
+        itemCount: 7,
+        itemBuilder: (context, index) {
+          return Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Expanded(
+                  child: Padding(padding: _padding, child: dayDisplay(index)))
+            ],
+          );
+        },
+      ),
+    );
   }
 }

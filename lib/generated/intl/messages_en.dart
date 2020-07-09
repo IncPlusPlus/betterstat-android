@@ -57,8 +57,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Mark all incomplete"),
         "newDayHint": MessageLookupByLibrary.simpleMessage(
             "What should this day be named?"),
-        "newScheduleHint": MessageLookupByLibrary.simpleMessage(
-            "What should this schedule be named?"),
+        "newScheduleHint":
+            MessageLookupByLibrary.simpleMessage("Schedule name"),
         "saveChanges": MessageLookupByLibrary.simpleMessage("Save changes"),
         "scheduleDetails":
             MessageLookupByLibrary.simpleMessage("Schedule Details"),

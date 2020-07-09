@@ -39,9 +39,10 @@ Future<List<Day>> getDays() async {
 
 Future<Day> postDay(Day day) async {
   final uri = Uri.https(apiUrl, '$dayEndpoint');
-  final response = await httpClient.put(uri,
+  final response = await httpClient.post(uri,
       headers: applicationJsonHeader, body: jsonEncode(serialize<Day>(day)));
-  expectResponseCode(201, response);
+  //TODO: Should be 201
+  expectResponseCode(200, response);
   return deserialize<Day>(jsonDecode(response.body));
 }
 
