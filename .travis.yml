@@ -10,10 +10,11 @@ install:
   - flutter doctor
   - flutter packages get
 script:
-  - flutter packages pub run build_runner build
+  # running build_runner's build command is necessary only to generate code in the business module
+  - cd business/ && flutter packages pub run build_runner build && cd ..
   - flutter analyze --dartdocs
-  - dartfmt -n ./lib --set-exit-if-changed
-  - flutter test --coverage --coverage-path=lcov.info
+  - dartfmt -n . --set-exit-if-changed
+  - flutter test --coverage --coverage-path=lcov.info .
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 cache:

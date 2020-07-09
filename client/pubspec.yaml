@@ -1,5 +1,5 @@
-name: betterstatmobile
-description: The mobile app to control betterstat.
+name: betterstatmobile_client_components
+description: The client components of betterstatmobile.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -25,9 +25,10 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  betterstatmobile_client_components:
-    path: ./client/
-  flutter_built_redux: ^0.6.0
+  betterstatmobile_business_logic:
+    path: ../business/
+  flutter_icons: ^1.1.0
+  auto_size_text: ^2.1.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

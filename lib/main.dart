@@ -1,19 +1,18 @@
-import 'package:betterstatmobile/actions/actions.dart';
-import 'package:betterstatmobile/containers/add_schedule.dart';
-import 'package:betterstatmobile/generated/l10n.dart';
-import 'package:betterstatmobile/middleware/store_days_middleware.dart';
-import 'package:betterstatmobile/middleware/store_schedules_middleware.dart';
-import 'package:betterstatmobile/models/app_state.dart';
-import 'package:betterstatmobile/presentation/home_screen.dart';
-import 'package:betterstatmobile/reducers/reducers.dart';
-import 'package:betterstatmobile/util/keys.dart';
-import 'package:betterstatmobile/util/routes.dart';
+import 'package:betterstatmobile_business_logic/actions/actions.dart';
+import 'package:betterstatmobile_business_logic/generated/l10n.dart';
+import 'package:betterstatmobile_business_logic/middleware/store_days_middleware.dart';
+import 'package:betterstatmobile_business_logic/middleware/store_schedules_middleware.dart';
+import 'package:betterstatmobile_business_logic/models/app_state.dart';
+import 'package:betterstatmobile_business_logic/reducers/reducers.dart';
+import 'package:betterstatmobile_business_logic/util/keys.dart';
+import 'package:betterstatmobile_business_logic/util/routes.dart';
+import 'package:betterstatmobile_client_components/containers/add_day.dart';
+import 'package:betterstatmobile_client_components/containers/add_schedule.dart';
+import 'package:betterstatmobile_client_components/presentation/home_screen.dart';
 import 'package:built_redux/built_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_built_redux/flutter_built_redux.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-
-import 'containers/add_day.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
