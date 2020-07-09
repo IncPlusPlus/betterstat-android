@@ -30,9 +30,8 @@ dependencies:
   http_auth: ^0.2.9
   async: ^2.4.1
   intl: ^0.16.1
-  flutter_built_redux: ^0.6.0
-  built_redux: ^7.5.11
   built_value: ^7.1.0
+  async_redux: 2.12.3
 
 flutter_intl:
   enabled: true
