@@ -1,0 +1,3 @@
+# Betterstat Mobile: Client Module
+
+The `client` module contains client components of `betterstatmobile`. It also contains items related to [async_redux](https://pub.dev/packages/async_redux) such as the various Widgets, Connectors, ViewModels of the Connectors, and "dumb" (unaware of redux) widgets (per the [recommended directory structure](https://pub.dev/packages/async_redux#recommended-directory-structure)).
