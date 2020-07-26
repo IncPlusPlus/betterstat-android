@@ -1,5 +1,6 @@
 library app_state;
 
+import 'package:async_redux/async_redux.dart';
 import 'package:betterstatmobile_business_logic/models/app_tab.dart';
 import 'package:betterstatmobile_business_logic/models/day.dart';
 import 'package:betterstatmobile_business_logic/models/schedule.dart';
@@ -16,7 +17,7 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
 
   factory AppState([void Function(AppStateBuilder b) updates]) =>
       _$AppState((b) => b
-        ..isLoading = false
+        ..wait = Wait()
         ..thermostats = ListBuilder<Thermostat>([])
         ..days = ListBuilder<Day>([])
         ..schedules = ListBuilder<Schedule>([])
@@ -26,13 +27,11 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
   factory AppState.fromSchedules(List<Schedule> schedules) =>
       AppState((b) => b..schedules = ListBuilder<Schedule>(schedules));
 
-  factory AppState.loading() => AppState((b) => b..isLoading = true);
-
   AppState._();
 
   AppTab get activeTab;
 
-  bool get isLoading;
+  Wait get wait;
 
   @memoized
   int get numActiveSelector => 2;
@@ -46,6 +45,7 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
 
   BuiltList<Schedule> get schedules;
 
+  //TODO: Is memoization necessary?
   @memoized
   List<Thermostat> get thermostatsSelector => thermostats.toList();
 
@@ -62,4 +62,6 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
       return Optional.absent();
     }
   }
+
+  static AppState initialState() => AppState((b) => b.build());
 }

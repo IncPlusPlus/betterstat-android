@@ -33,7 +33,7 @@ class ScheduleRepository implements GenericFutureRepository<Schedule, String> {
   }
 
   @override
-  Future saveById(Schedule schedule, String id) {
+  Future<Schedule> saveById(Schedule schedule, String id) {
     return putSchedule(schedule, id);
   }
 }

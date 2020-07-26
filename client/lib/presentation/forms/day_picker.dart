@@ -1,13 +1,16 @@
+library day_picker;
+
 import 'dart:async';
 
-import 'package:betterstatmobile_business_logic/actions/actions.dart';
+import 'package:async_redux/async_redux.dart';
 import 'package:betterstatmobile_business_logic/models/app_state.dart';
 import 'package:betterstatmobile_business_logic/models/day.dart';
 import 'package:betterstatmobile_client_components/presentation/day_details_screen.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:built_value/built_value.dart';
+import 'package:flutter/material.dart' hide Builder;
 import 'package:flutter/services.dart';
-import 'package:flutter_built_redux/flutter_built_redux.dart';
+
+part 'day_picker.g.dart';
 
 const double _kTimePickerHeaderPortraitHeight = 96.0;
 const double _kTimePickerHeaderLandscapeWidth = 168.0;
@@ -361,17 +364,14 @@ Future<Day> showDayPicker({
   assert(useRootNavigator != null);
   assert(debugCheckHasMaterialLocalizations(context));
 
-  final Widget dialog = StoreConnection<AppState, AppActions, List<Day>>(
-    builder: (context, state, actions) {
-      return _DayPickerDialog(
-        initialDay: initialDay,
-        daysAvailable: state,
-      );
-    },
-    connect: (AppState state) {
-      return state.days.asList();
-    },
-  );
+  final Widget dialog = StoreConnector<AppState, _DayPickerViewModel>(
+      converter: (store) =>
+          _DayPickerViewModel.fromKnownInfo(store, initialDay),
+      builder: (BuildContext context, _DayPickerViewModel vm) =>
+          (_DayPickerDialog(
+            initialDay: vm.initialDay,
+            daysAvailable: vm.daysAvailable,
+          )));
 
   return await showDialog<Day>(
     context: context,
@@ -381,4 +381,24 @@ Future<Day> showDayPicker({
     },
     routeSettings: routeSettings,
   );
+}
+
+abstract class _DayPickerViewModel
+    implements Built<_DayPickerViewModel, _DayPickerViewModelBuilder> {
+  _DayPickerViewModel._();
+
+  factory _DayPickerViewModel(
+          [void Function(_DayPickerViewModelBuilder) updates]) =
+      _$DayPickerViewModel;
+
+  @nullable
+  Day get initialDay;
+
+  List<Day> get daysAvailable;
+
+  static _DayPickerViewModel fromKnownInfo(Store<AppState> store, Day day) {
+    return _DayPickerViewModel((b) => b
+      ..initialDay = day?.toBuilder()
+      ..daysAvailable = store.state.daysSelector);
+  }
 }

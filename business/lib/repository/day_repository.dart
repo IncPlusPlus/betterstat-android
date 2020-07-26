@@ -26,7 +26,7 @@ class DayRepository implements GenericFutureRepository<Day, String> {
   }
 
   @override
-  Future saveById(Day schedule, String id) {
+  Future<Day> saveById(Day schedule, String id) {
     return putDay(schedule, id);
   }
 }

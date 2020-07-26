@@ -1,26 +1,58 @@
+library edit_schedule;
+
+import 'package:async_redux/async_redux.dart';
 import 'package:betterstatmobile_business_logic/actions/actions.dart';
 import 'package:betterstatmobile_business_logic/models/day.dart';
 import 'package:betterstatmobile_business_logic/models/models.dart';
 import 'package:betterstatmobile_business_logic/util/keys.dart';
 import 'package:betterstatmobile_client_components/presentation/add_edit_schedule_screen.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_built_redux/flutter_built_redux.dart';
+import 'package:built_value/built_value.dart';
+import 'package:flutter/material.dart' hide Builder;
 
-class EditSchedule extends StoreConnector<AppState, AppActions, Null> {
+part 'edit_schedule.g.dart';
+
+class EditSchedule extends StatelessWidget {
   final Schedule schedule;
 
   EditSchedule({this.schedule, Key key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, _, AppActions actions) {
-    return AddEditScheduleScreen(
-      key: BetterstatKeys.editScheduleScreen,
-      isEditing: true,
-      onSave: (String name, Day sunday, Day monday, Day tuesday, Day wednesday,
-          Day thursday, Day friday, Day saturday) {
-        actions.updateScheduleAction(UpdateScheduleActionPayload(
-            schedule.id,
-            schedule.rebuild((b) => b
+  Widget build(BuildContext context) {
+    return StoreConnector<AppState, ViewModel>(
+      converter: (store) => ViewModel.fromKnownInfo(store, schedule),
+      builder: (BuildContext context, ViewModel vm) => AddEditScheduleScreen(
+        key: vm.screenKey,
+        isEditing: vm.isEditing,
+        onSave: vm.onSave,
+        schedule: vm.scheduleToEdit,
+      ),
+    );
+  }
+}
+
+abstract class ViewModel implements Built<ViewModel, ViewModelBuilder> {
+  factory ViewModel([Function(ViewModelBuilder b) updates]) = _$ViewModel;
+
+  ViewModel._();
+
+  Key get screenKey;
+
+  bool get isEditing;
+
+  Function(String name, Day sunday, Day monday, Day tuesday, Day wednesday,
+      Day thursday, Day friday, Day saturday) get onSave;
+
+  Schedule get scheduleToEdit;
+
+  static ViewModel fromKnownInfo(
+      Store<AppState> store, Schedule scheduleToEdit) {
+    return ViewModel((b) => b
+      ..screenKey = BetterstatKeys.editScheduleScreen
+      ..isEditing = true
+      ..onSave = (String name, Day sunday, Day monday, Day tuesday,
+          Day wednesday, Day thursday, Day friday, Day saturday) {
+        store.dispatch(UpdateScheduleAction(
+            updatedSchedule: scheduleToEdit.rebuild((b) => b
               ..name = name
               ..sunday = sunday.toBuilder()
               ..monday = monday.toBuilder()
@@ -28,12 +60,9 @@ class EditSchedule extends StoreConnector<AppState, AppActions, Null> {
               ..wednesday = wednesday.toBuilder()
               ..thursday = thursday.toBuilder()
               ..friday = friday.toBuilder()
-              ..saturday = saturday.toBuilder())));
-      },
-      schedule: schedule,
-    );
+              ..saturday = saturday.toBuilder()),
+            originalSchedule: scheduleToEdit));
+      }
+      ..scheduleToEdit = scheduleToEdit.toBuilder());
   }
-
-  @override
-  Null connect(AppState state) {}
 }

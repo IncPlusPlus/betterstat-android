@@ -22,7 +22,6 @@ class MessageLookup extends MessageLookupByLibrary {
   static m0(name) => "Deleted \"${name}\"";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
-
   static _notInlinedMessages(_) => <String, Function>{
         "activeSchedules":
             MessageLookupByLibrary.simpleMessage("Active Schedules"),

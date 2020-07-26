@@ -43,7 +43,7 @@ Future<Schedule> postSchedule(Schedule schedule) async {
   final response = await httpClient.post(uri,
       headers: applicationJsonHeader,
       body: jsonEncode(serialize<Schedule>(schedule)));
-  //TODO: Should be 201
+  //TODO: Should be 201 but server returns 200
   expectResponseCode(200, response);
   return deserialize<Schedule>(jsonDecode(response.body));
 }

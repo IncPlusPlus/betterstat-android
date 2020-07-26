@@ -1,34 +1,45 @@
+library schedule_details;
+
+import 'package:async_redux/async_redux.dart';
 import 'package:betterstatmobile_business_logic/actions/actions.dart';
 import 'package:betterstatmobile_business_logic/models/models.dart';
 import 'package:betterstatmobile_client_components/presentation/schedule_details_screen.dart';
+import 'package:built_value/built_value.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_built_redux/flutter_built_redux.dart';
+import 'package:flutter/material.dart' hide Builder;
 
-class ScheduleDetails extends StoreConnector<AppState, AppActions, Schedule> {
-  final String id;
+part 'schedule_details.g.dart';
 
-  ScheduleDetails({Key key, @required this.id}) : super(key: key);
+class ScheduleDetails extends StatelessWidget {
+  final Schedule schedule;
+
+  ScheduleDetails({Key key, @required this.schedule}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, Schedule schedule, AppActions actions) {
-    return ScheduleDetailsScreen(
-      schedule: schedule,
-      onDelete: () => actions.deleteScheduleAction(schedule.id),
-//      toggleCompleted: (isComplete) {
-//        actions.updateScheduleAction(UpdateScheduleActionPayload(
-//          id,
-//          schedule.rebuild((b) => b..complete = isComplete),
-//        ));
-//      },
-    );
+  Widget build(BuildContext context) {
+    return StoreConnector<AppState, _ViewModel>(
+        converter: (store) => _ViewModel.fromKnownInfo(store, schedule),
+        builder: (BuildContext context, _ViewModel vm) => ScheduleDetailsScreen(
+              schedule: vm.schedule,
+              onDelete: vm.onDelete,
+            ));
   }
+}
 
-  @override
-  Schedule connect(AppState state) {
-    return state.schedules.firstWhere(
-      (schedule) => schedule.id == id,
-      orElse: () => Schedule(),
-    );
+abstract class _ViewModel implements Built<_ViewModel, _ViewModelBuilder> {
+  factory _ViewModel([Function(_ViewModelBuilder b) updates]) = _$ViewModel;
+
+  _ViewModel._();
+
+  Schedule get schedule;
+
+  VoidCallback get onDelete;
+
+  static _ViewModel fromKnownInfo(Store<AppState> store, Schedule schedule) {
+    return _ViewModel((b) => b
+      ..schedule = schedule.toBuilder()
+      ..onDelete = () {
+        store.dispatch(DeleteScheduleAction(scheduleId: schedule.id));
+      });
   }
 }

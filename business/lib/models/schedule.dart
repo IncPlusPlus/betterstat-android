@@ -35,18 +35,25 @@ abstract class Schedule implements Built<Schedule, ScheduleBuilder> {
 
   String get name;
 
+  @nullable
   Day get sunday;
 
+  @nullable
   Day get monday;
 
+  @nullable
   Day get tuesday;
 
+  @nullable
   Day get wednesday;
 
+  @nullable
   Day get thursday;
 
+  @nullable
   Day get friday;
 
+  @nullable
   Day get saturday;
 }
 

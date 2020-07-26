@@ -1,45 +1,61 @@
-import 'package:betterstatmobile_business_logic/actions/actions.dart';
-import 'package:betterstatmobile_business_logic/generated/l10n.dart';
-import 'package:betterstatmobile_business_logic/models/models.dart';
-import 'package:betterstatmobile_business_logic/util/keys.dart';
-import 'package:betterstatmobile_business_logic/util/routes.dart';
-import 'package:betterstatmobile_business_logic/util/specialized_completer.dart';
-import 'package:betterstatmobile_client_components/presentation/schedule_list.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_built_redux/flutter_built_redux.dart';
+library schedules_tab;
 
-class SchedulesTab
-    extends StoreConnector<AppState, AppActions, List<Schedule>> {
+import 'package:async_redux/async_redux.dart';
+import 'package:betterstatmobile_business_logic/actions/actions.dart';
+import 'package:betterstatmobile_business_logic/models/app_state.dart';
+import 'package:betterstatmobile_business_logic/models/schedule.dart';
+import 'package:betterstatmobile_client_components/presentation/schedule_list.dart';
+import 'package:built_value/built_value.dart';
+import 'package:flutter/material.dart' hide Builder;
+
+part 'schedules_tab.g.dart';
+
+/*
+ * TODO: All of the *Tab classes are "connectors". Move and rename them accordingly.
+ *  Also, the Widget components of this should be refactored out (such as the Scaffold).
+ */
+class SchedulesTab extends StatelessWidget {
   SchedulesTab({Key key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, List<Schedule> state, AppActions actions) {
-    return Scaffold(
-      body: ScheduleList(
-        schedules: state,
-        onRefresh: (SpecializedCompleterTuple tuple) {
-          actions.fetchSchedulesAction(tuple);
-          return tuple.completer.future;
-        },
-        onRemove: (schedule) {
-          actions.deleteScheduleAction(schedule.id);
-        },
-        onUndoRemove: (schedule) {
-          actions.addScheduleAction(schedule);
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        key: BetterstatKeys.addScheduleFab,
-        onPressed: () {
-          Navigator.pushNamed(context, BetterstatRoutes.addSchedule);
-        },
-        child: Icon(Icons.add),
-        tooltip: S.of(context).addSchedule,
+  Widget build(BuildContext context) {
+    return StoreConnector<AppState, _ViewModel>(
+      converter: (store) => _ViewModel.fromStore(store),
+      onInit: (store) => store.dispatchFuture(FetchSchedulesAction()),
+      builder: (BuildContext context, _ViewModel vm) => ScheduleList(
+        schedules: vm.schedules,
+        onRefresh: vm.onRefresh,
+        onRemove: vm.onRemove,
+        onUndoRemove: vm.onUndoRemove,
       ),
     );
   }
+}
 
-  @override
-  List<Schedule> connect(AppState state) => state.schedulesSelector;
+abstract class _ViewModel implements Built<_ViewModel, _ViewModelBuilder> {
+  factory _ViewModel([Function(_ViewModelBuilder b) updates]) = _$ViewModel;
+
+  _ViewModel._();
+
+  List<Schedule> get schedules;
+
+  Function(Schedule) get onRemove;
+
+  Function(Schedule) get onUndoRemove;
+
+  Future<void> Function() get onRefresh;
+
+  static _ViewModel fromStore(Store<AppState> store) {
+    return _ViewModel((b) => b
+      ..schedules = store.state.schedulesSelector
+      ..onRefresh = () {
+        return store.dispatchFuture(FetchSchedulesAction());
+      }
+      ..onRemove = (schedule) {
+        store.dispatch(DeleteScheduleAction(scheduleId: schedule.id));
+      }
+      ..onUndoRemove = (schedule) {
+        store.dispatch(AddScheduleAction(newSchedule: schedule));
+      });
+  }
 }

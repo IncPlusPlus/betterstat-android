@@ -10,5 +10,5 @@ abstract class GenericFutureRepository<T, ID> {
 
   Future<List<T>> getAll();
 
-  Future saveById(T schedule, ID id);
+  Future<T> saveById(T schedule, ID id);
 }
