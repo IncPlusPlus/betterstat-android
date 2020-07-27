@@ -56,8 +56,8 @@ class DaySelectionFormField extends FormField<Day> {
                 child: Center(
                   child: AutoSizeText(
                     (state.value != null) ? state.value.name : 'No day',
-                    style: TextStyle(fontSize: 30),
-                    maxLines: 2,
+                    style: TextStyle(fontSize: 20),
+                    maxLines: 1,
                     overflowReplacement: Text('Day name too long'),
                   ),
                 ),
