@@ -4,7 +4,7 @@ import 'package:async_redux/async_redux.dart';
 import 'package:betterstatmobile_business_logic/actions/actions.dart';
 import 'package:betterstatmobile_business_logic/models/day.dart';
 import 'package:betterstatmobile_business_logic/models/models.dart';
-import 'package:betterstatmobile_client_components/presentation/day_list.dart';
+import 'package:betterstatmobile_client_components/day/presentation/day_list.dart';
 import 'package:built_value/built_value.dart';
 import 'package:flutter/material.dart' hide Builder;
 

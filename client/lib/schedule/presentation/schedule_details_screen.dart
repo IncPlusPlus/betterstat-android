@@ -3,7 +3,7 @@ import 'package:betterstatmobile_business_logic/generated/l10n.dart';
 import 'package:betterstatmobile_business_logic/models/day.dart';
 import 'package:betterstatmobile_business_logic/models/models.dart';
 import 'package:betterstatmobile_business_logic/util/keys.dart';
-import 'package:betterstatmobile_client_components/containers/edit_schedule.dart';
+import 'package:betterstatmobile_client_components/schedule/connector/edit_schedule.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 

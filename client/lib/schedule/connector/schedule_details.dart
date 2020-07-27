@@ -3,7 +3,7 @@ library schedule_details;
 import 'package:async_redux/async_redux.dart';
 import 'package:betterstatmobile_business_logic/actions/actions.dart';
 import 'package:betterstatmobile_business_logic/models/models.dart';
-import 'package:betterstatmobile_client_components/presentation/schedule_details_screen.dart';
+import 'package:betterstatmobile_client_components/schedule/presentation/schedule_details_screen.dart';
 import 'package:built_value/built_value.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' hide Builder;

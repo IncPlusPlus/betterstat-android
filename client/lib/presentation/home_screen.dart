@@ -1,6 +1,6 @@
 import 'package:betterstatmobile_business_logic/generated/l10n.dart';
-import 'package:betterstatmobile_client_components/containers/days_tab.dart';
-import 'package:betterstatmobile_client_components/containers/schedules_tab.dart';
+import 'package:betterstatmobile_client_components/day/connector/days_tab.dart';
+import 'package:betterstatmobile_client_components/schedule/connector/schedules_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 

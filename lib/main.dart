@@ -3,9 +3,9 @@ import 'package:betterstatmobile_business_logic/generated/l10n.dart';
 import 'package:betterstatmobile_business_logic/models/app_state.dart';
 import 'package:betterstatmobile_business_logic/util/keys.dart';
 import 'package:betterstatmobile_business_logic/util/routes.dart';
-import 'package:betterstatmobile_client_components/containers/add_day.dart';
-import 'package:betterstatmobile_client_components/containers/add_schedule.dart';
+import 'package:betterstatmobile_client_components/day/connector/add_day.dart';
 import 'package:betterstatmobile_client_components/presentation/home_screen.dart';
+import 'package:betterstatmobile_client_components/schedule/connector/add_schedule.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 

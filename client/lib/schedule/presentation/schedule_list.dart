@@ -5,29 +5,29 @@
 import 'dart:async';
 
 import 'package:betterstatmobile_business_logic/generated/l10n.dart';
-import 'package:betterstatmobile_business_logic/models/day.dart';
+import 'package:betterstatmobile_business_logic/models/models.dart';
 import 'package:betterstatmobile_business_logic/util/keys.dart';
 import 'package:betterstatmobile_business_logic/util/routes.dart';
-import 'package:betterstatmobile_client_components/containers/day_details.dart';
-import 'package:betterstatmobile_client_components/presentation/day_item.dart';
+import 'package:betterstatmobile_client_components/schedule/connector/schedule_details.dart';
+import 'package:betterstatmobile_client_components/schedule/presentation/schedule_item.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
     GlobalKey<RefreshIndicatorState>();
 
-class DayList extends StatelessWidget {
-  final List<Day> days;
-  final Function(Day) onRemove;
-  final Function(Day) onUndoRemove;
+class ScheduleList extends StatelessWidget {
+  final List<Schedule> schedules;
+  final Function(Schedule) onRemove;
+  final Function(Schedule) onUndoRemove;
   final Future<void> Function() onRefresh;
 
-  DayList({
-    @required this.days,
+  ScheduleList({
+    @required this.schedules,
     @required this.onRemove,
     @required this.onUndoRemove,
     @required this.onRefresh,
-  }) : super(key: BetterstatKeys.dayList);
+  }) : super(key: BetterstatKeys.scheduleList);
 
   @override
   Widget build(BuildContext context) {
@@ -36,52 +36,52 @@ class DayList extends StatelessWidget {
           key: _refreshIndicatorKey,
           onRefresh: onRefresh,
           child: ListView.builder(
-            key: BetterstatKeys.dayList,
-            itemCount: days.length,
+            key: BetterstatKeys.scheduleList,
+            itemCount: schedules.length,
             itemBuilder: (BuildContext context, int index) {
-              final day = days[index];
+              final schedule = schedules[index];
 
-              return DayItem(
-                day: day,
-                onTap: () => {_onDayTap(context, day)},
+              return ScheduleItem(
+                schedule: schedule,
+                onTap: () => {_onScheduleTap(context, schedule)},
               );
             },
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          key: BetterstatKeys.addDayFab,
+          key: BetterstatKeys.addScheduleFab,
           onPressed: () {
-            Navigator.pushNamed(context, BetterstatRoutes.addDay);
+            Navigator.pushNamed(context, BetterstatRoutes.addSchedule);
           },
           child: Icon(Icons.add),
           tooltip: S.of(context).addSchedule,
         ));
   }
 
-  void _onDayTap(BuildContext context, Day day) {
+  void _onScheduleTap(BuildContext context, Schedule schedule) {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (_) {
-          return DayDetails(
-            day: day,
+          return ScheduleDetails(
+            schedule: schedule,
           );
         },
       ),
-    ).then((removedDay) {
-      if (removedDay != null) {
+    ).then((removedSchedule) {
+      if (removedSchedule != null) {
         Scaffold.of(context).showSnackBar(
           SnackBar(
             key: BetterstatKeys.snackbar,
             duration: Duration(seconds: 2),
             content: Text(
-              S.of(context).itemDeleted(day.name),
+              S.of(context).itemDeleted(schedule.name),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
             action: SnackBarAction(
               label: S.of(context).undo,
               onPressed: () {
-                onUndoRemove(day);
+                onUndoRemove(schedule);
               },
             ),
           ),
@@ -90,20 +90,20 @@ class DayList extends StatelessWidget {
     });
   }
 
-//  void _removeDay(BuildContext context, Day day) {
-//    onRemove(day);
+//  void _removeSchedule(BuildContext context, Schedule schedule) {
+//    onRemove(schedule);
 //
 //    Scaffold.of(context).showSnackBar(SnackBar(
 //        key: BetterstatKeys.snackbar,
 //        duration: Duration(seconds: 2),
 //        content: Text(
-//          S.of(context).dayDeleted(day.name),
+//          S.of(context).scheduleDeleted(schedule.name),
 //          maxLines: 1,
 //          overflow: TextOverflow.ellipsis,
 //        ),
 //        action: SnackBarAction(
 //          label: S.of(context).undo,
-//          onPressed: () => onUndoRemove(day),
+//          onPressed: () => onUndoRemove(schedule),
 //        )));
 //  }
 
