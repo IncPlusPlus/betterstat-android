@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:core';
 
 import 'package:http/http.dart' as http;
@@ -26,6 +25,6 @@ final String thermostatSetupEndpointSuffix = '/setup';
 void expectResponseCode(int expectedCode, http.Response response) {
   if (expectedCode != response.statusCode) {
     throw UnexpectedResponseException(expectedCode, response.statusCode,
-        responseBody: jsonDecode(response.body));
+        responseBody: response.body);
   }
 }
