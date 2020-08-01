@@ -17,7 +17,7 @@ final http.Client httpClient =
 final Duration timeout = Duration(seconds: 30);
 final String scheduleEndpoint = '/schedule';
 final String dayEndpoint = '/day';
-final String thermostatEndpoint = '/day';
+final String thermostatEndpoint = '/thermostat';
 
 /// The URI is /thermostat/{id}[thermostatSetupEndpointSuffix]
 final String thermostatSetupEndpointSuffix = '/setup';
