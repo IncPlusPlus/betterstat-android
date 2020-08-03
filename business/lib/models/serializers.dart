@@ -17,6 +17,9 @@ part 'serializers.g.dart';
   Thermostat,
   FanSetting,
   States,
+  ThermostatSetupStatus,
+  ThermostatSetupStep,
+  DescriptivePortNameSystemPortNamePair,
   SetPointTimeTuple,
   AppState,
 ])

@@ -23,16 +23,11 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function>{
-        "activeSchedules":
-            MessageLookupByLibrary.simpleMessage("Active Schedules"),
         "addDay": MessageLookupByLibrary.simpleMessage("Add Day"),
         "addSchedule": MessageLookupByLibrary.simpleMessage("Add Schedule"),
+        "addThermostat": MessageLookupByLibrary.simpleMessage("Add Thermostat"),
         "appTitle": MessageLookupByLibrary.simpleMessage("Betterstat"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
-        "clearCompleted":
-            MessageLookupByLibrary.simpleMessage("Clear completed"),
-        "completedSchedules":
-            MessageLookupByLibrary.simpleMessage("Completed Schedules"),
         "dayDetails": MessageLookupByLibrary.simpleMessage("Day Details"),
         "days": MessageLookupByLibrary.simpleMessage("Days"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
@@ -43,29 +38,31 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Delete Schedule"),
         "deleteScheduleConfirmation":
             MessageLookupByLibrary.simpleMessage("Delete this schedule?"),
+        "deleteThermostat":
+            MessageLookupByLibrary.simpleMessage("Delete Thermostat"),
+        "deleteThermostatConfirmation":
+            MessageLookupByLibrary.simpleMessage("Delete this thermostat?"),
         "editDay": MessageLookupByLibrary.simpleMessage("Edit Day"),
         "editSchedule": MessageLookupByLibrary.simpleMessage("Edit Schedule"),
+        "editThermostat":
+            MessageLookupByLibrary.simpleMessage("Edit Thermostat"),
         "emptyTextFieldError":
             MessageLookupByLibrary.simpleMessage("Please enter some text"),
-        "filterSchedules":
-            MessageLookupByLibrary.simpleMessage("Filter Schedules"),
         "itemDeleted": m0,
-        "markAllComplete":
-            MessageLookupByLibrary.simpleMessage("Mark all complete"),
-        "markAllIncomplete":
-            MessageLookupByLibrary.simpleMessage("Mark all incomplete"),
         "newDayHint": MessageLookupByLibrary.simpleMessage(
             "What should this day be named?"),
         "newScheduleHint":
             MessageLookupByLibrary.simpleMessage("Schedule name"),
+        "newThermostatHint":
+            MessageLookupByLibrary.simpleMessage("Thermostat name"),
         "saveChanges": MessageLookupByLibrary.simpleMessage("Save changes"),
         "scheduleDetails":
             MessageLookupByLibrary.simpleMessage("Schedule Details"),
         "schedules": MessageLookupByLibrary.simpleMessage("Schedules"),
-        "showActive": MessageLookupByLibrary.simpleMessage("Show Active"),
-        "showAll": MessageLookupByLibrary.simpleMessage("Show All"),
-        "showCompleted": MessageLookupByLibrary.simpleMessage("Show Completed"),
         "stats": MessageLookupByLibrary.simpleMessage("Stats"),
+        "thermostatDetails":
+            MessageLookupByLibrary.simpleMessage("Thermostat Details"),
+        "thermostats": MessageLookupByLibrary.simpleMessage("Thermostats"),
         "undo": MessageLookupByLibrary.simpleMessage("Undo")
       };
 }

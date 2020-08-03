@@ -105,6 +105,76 @@ class S {
     );
   }
 
+  /// `Add Thermostat`
+  String get addThermostat {
+    return Intl.message(
+      'Add Thermostat',
+      name: 'addThermostat',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete Thermostat`
+  String get deleteThermostat {
+    return Intl.message(
+      'Delete Thermostat',
+      name: 'deleteThermostat',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete this thermostat?`
+  String get deleteThermostatConfirmation {
+    return Intl.message(
+      'Delete this thermostat?',
+      name: 'deleteThermostatConfirmation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit Thermostat`
+  String get editThermostat {
+    return Intl.message(
+      'Edit Thermostat',
+      name: 'editThermostat',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Thermostat name`
+  String get newThermostatHint {
+    return Intl.message(
+      'Thermostat name',
+      name: 'newThermostatHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Thermostat Details`
+  String get thermostatDetails {
+    return Intl.message(
+      'Thermostat Details',
+      name: 'thermostatDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Thermostats`
+  String get thermostats {
+    return Intl.message(
+      'Thermostats',
+      name: 'thermostats',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Add Schedule`
   String get addSchedule {
     return Intl.message(
@@ -240,96 +310,6 @@ class S {
     return Intl.message(
       'Days',
       name: 'days',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Active Schedules`
-  String get activeSchedules {
-    return Intl.message(
-      'Active Schedules',
-      name: 'activeSchedules',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Clear completed`
-  String get clearCompleted {
-    return Intl.message(
-      'Clear completed',
-      name: 'clearCompleted',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Completed Schedules`
-  String get completedSchedules {
-    return Intl.message(
-      'Completed Schedules',
-      name: 'completedSchedules',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Filter Schedules`
-  String get filterSchedules {
-    return Intl.message(
-      'Filter Schedules',
-      name: 'filterSchedules',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Mark all complete`
-  String get markAllComplete {
-    return Intl.message(
-      'Mark all complete',
-      name: 'markAllComplete',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Mark all incomplete`
-  String get markAllIncomplete {
-    return Intl.message(
-      'Mark all incomplete',
-      name: 'markAllIncomplete',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Show Active`
-  String get showActive {
-    return Intl.message(
-      'Show Active',
-      name: 'showActive',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Show All`
-  String get showAll {
-    return Intl.message(
-      'Show All',
-      name: 'showAll',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Show Completed`
-  String get showCompleted {
-    return Intl.message(
-      'Show Completed',
-      name: 'showCompleted',
       desc: '',
       args: [],
     );

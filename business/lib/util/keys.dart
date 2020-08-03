@@ -4,10 +4,20 @@ class BetterstatKeys {
   // Home Screens
   static const homeScreen = Key('__homeScreen__');
   static const snackbar = Key('__snackbar__');
+  static var addThermostatFab = Key('__addThermostatFab__');
   static const addScheduleFab = Key('__addScheduleFab__');
   static const addDayFab = Key('__addDayFab__');
 
   static Key snackbarAction(String id) => Key('__snackbar_action_${id}__');
+
+  //<editor-fold desc="Thermostat">
+  static const thermostatList = Key('__thermostatList__');
+  static const thermostatsLoading = Key('__thermostatsLoading__');
+  static final thermostatItem = (String id) => Key('ThermostatItem__${id}');
+  static final thermostatItemName =
+      (String id) => Key('ThermostatItem__${id}__Name');
+
+  //</editor-fold>
 
   //<editor-fold desc="Schedule">
   static const scheduleList = Key('__scheduleList__');
@@ -28,6 +38,7 @@ class BetterstatKeys {
 
   //<editor-fold desc="Tabs">
   static const tabs = Key('__tabs__');
+  static const thermostatTab = Key('__thermostatTab__');
   static const scheduleTab = Key('__scheduleTab__');
   static const dayTab = Key('__dayTab__');
   static const statsTab = Key('__statsTab__');
@@ -43,6 +54,9 @@ class BetterstatKeys {
   //</editor-fold>
 
   //<editor-fold desc="Details Screen">
+  static const editThermostatFab = Key('__editThermostatFab__');
+  static const deleteThermostatButton = Key('__deleteThermostatFab__');
+  static const thermostatDetailsScreen = Key('__thermostatDetailsScreen__');
   static const editScheduleFab = Key('__editScheduleFab__');
   static const deleteScheduleButton = Key('__deleteScheduleFab__');
   static const scheduleDetailsScreen = Key('__scheduleDetailsScreen__');
@@ -55,6 +69,8 @@ class BetterstatKeys {
   //</editor-fold>
 
   //<editor-fold desc="Add Screen">
+  static const addThermostatScreen = Key('__addThermostatScreen__');
+  static const saveNewThermostat = Key('__saveNewThermostat__');
   static const addScheduleScreen = Key('__addScheduleScreen__');
   static const saveNewSchedule = Key('__saveNewSchedule__');
   static const addDayScreen = Key('__addDayScreen__');
@@ -64,6 +80,8 @@ class BetterstatKeys {
   //</editor-fold>
 
   //<editor-fold desc="Edit Screen">
+  static const editThermostatScreen = Key('__editThermostatScreen__');
+  static const saveThermostatFab = Key('__saveThermostatFab__');
   static const editScheduleScreen = Key('__editScheduleScreen__');
   static const saveScheduleFab = Key('__saveScheduleFab__');
   static const editDayScreen = Key('__editDayScreen__');

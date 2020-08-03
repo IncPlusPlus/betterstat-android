@@ -36,6 +36,41 @@
     "type": "text",
     "placeholders": {}
   },
+  "addThermostat": "Add Thermostat",
+  "@addThermostat": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "deleteThermostat": "Delete Thermostat",
+  "@deleteThermostat": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "deleteThermostatConfirmation": "Delete this thermostat?",
+  "@deleteThermostatConfirmation": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "editThermostat": "Edit Thermostat",
+  "@editThermostat": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "newThermostatHint": "Thermostat name",
+  "@newThermostatHint": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "thermostatDetails": "Thermostat Details",
+  "@thermostatDetails": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "thermostats": "Thermostats",
+  "@thermostats": {
+    "type": "text",
+    "placeholders": {}
+  },
   "addSchedule": "Add Schedule",
   "@addSchedule": {
     "type": "text",
@@ -103,51 +138,6 @@
   },
   "days": "Days",
   "@days": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "activeSchedules": "Active Schedules",
-  "@activeSchedules": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "clearCompleted": "Clear completed",
-  "@clearCompleted": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "completedSchedules": "Completed Schedules",
-  "@completedSchedules": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "filterSchedules": "Filter Schedules",
-  "@filterSchedules": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "markAllComplete": "Mark all complete",
-  "@markAllComplete": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "markAllIncomplete": "Mark all incomplete",
-  "@markAllIncomplete": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "showActive": "Show Active",
-  "@showActive": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "showAll": "Show All",
-  "@showAll": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "showCompleted": "Show Completed",
-  "@showCompleted": {
     "type": "text",
     "placeholders": {}
   },

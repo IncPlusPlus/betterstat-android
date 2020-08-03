@@ -1,16 +1,17 @@
-import 'package:betterstatmobile_business_logic/models/day.dart';
+import 'package:betterstatmobile_business_logic/models/thermostat.dart';
 import 'package:betterstatmobile_business_logic/util/keys.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 
-class DayItem extends StatelessWidget {
+class ThermostatItem extends StatelessWidget {
   final GestureTapCallback onTap;
-  final Day day;
+  final Thermostat thermostat;
 
-  DayItem({
+  ThermostatItem({
     @required this.onTap,
-    @required this.day,
-  }) : super(key: BetterstatKeys.dayItem(day.id));
+    @required this.thermostat,
+  }) : super(key: BetterstatKeys.thermostatItem(thermostat.id));
 
   @override
   Widget build(BuildContext context) {
@@ -19,15 +20,15 @@ class DayItem extends StatelessWidget {
       child: Card(
         child: ListTile(
           onTap: onTap,
-          leading: Icon(Icons.view_day),
+          leading: Icon(MaterialCommunityIcons.thermostat),
           title: Text(
-            day.name,
-            key: BetterstatKeys.dayItemName(day.id),
+            thermostat.name,
+            key: BetterstatKeys.thermostatItemName(thermostat.id),
             style: Theme.of(context).textTheme.headline6,
           ),
           subtitle: Text(
-            'id: ${day.id}',
-            key: BetterstatKeys.dayItem(day.id),
+            'id: ${thermostat.id}',
+            key: BetterstatKeys.thermostatItem(thermostat.id),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.subtitle1,

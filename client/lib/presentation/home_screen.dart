@@ -1,6 +1,9 @@
+import 'package:async_redux/async_redux.dart';
 import 'package:betterstatmobile_business_logic/generated/l10n.dart';
+import 'package:betterstatmobile_business_logic/models/app_state.dart';
 import 'package:betterstatmobile_client_components/day/connector/days_tab.dart';
 import 'package:betterstatmobile_client_components/schedule/connector/schedules_tab.dart';
+import 'package:betterstatmobile_client_components/thermostat/connector/thermostats_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
@@ -31,20 +34,11 @@ class HomeScreen extends StatelessWidget {
             ],
           ),
         ),
-//          body: activeTab == AppTab.schedules ? SchedulesTab() : Stats(),
         body: TabBarView(children: [
-          Icon(Icons.directions_car),
-          SchedulesTab(),
-          DaysTab(),
+          UserExceptionDialog<AppState>(child: ThermostatsTab()),
+          UserExceptionDialog<AppState>(child: SchedulesTab()),
+          UserExceptionDialog<AppState>(child: DaysTab()),
         ]),
-//          floatingActionButton: FloatingActionButton(
-//            key: BetterstatKeys.addScheduleFab,
-//            onPressed: () {
-//              Navigator.pushNamed(context, BetterstatRoutes.addSchedule);
-//            },
-//            child: Icon(Icons.add),
-//            tooltip: S.of(context).addSchedule,
-//          ),
       ),
     );
   }

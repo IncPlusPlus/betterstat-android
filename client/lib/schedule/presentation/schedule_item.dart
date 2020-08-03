@@ -14,20 +14,25 @@ class ScheduleItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      onTap: onTap,
-      leading: Icon(Icons.schedule),
-      title: Text(
-        schedule.name,
-        key: BetterstatKeys.scheduleItemName(schedule.id),
-        style: Theme.of(context).textTheme.headline6,
-      ),
-      subtitle: Text(
-        'id: ${schedule.id}',
-        key: BetterstatKeys.scheduleItem(schedule.id),
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-        style: Theme.of(context).textTheme.subtitle1,
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+      child: Card(
+        child: ListTile(
+          onTap: onTap,
+          leading: Icon(Icons.schedule),
+          title: Text(
+            schedule.name,
+            key: BetterstatKeys.scheduleItemName(schedule.id),
+            style: Theme.of(context).textTheme.headline6,
+          ),
+          subtitle: Text(
+            'id: ${schedule.id}',
+            key: BetterstatKeys.scheduleItem(schedule.id),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.subtitle1,
+          ),
+        ),
       ),
     );
   }
