@@ -5,6 +5,7 @@ import 'package:betterstatmobile_business_logic/models/app_tab.dart';
 import 'package:betterstatmobile_business_logic/models/day.dart';
 import 'package:betterstatmobile_business_logic/models/schedule.dart';
 import 'package:betterstatmobile_business_logic/models/thermostat.dart';
+import 'package:betterstatmobile_business_logic/models/thermostat_setup_status.dart';
 import 'package:betterstatmobile_business_logic/util/optional.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
@@ -22,6 +23,8 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
         ..days = ListBuilder<Day>([])
         ..schedules = ListBuilder<Schedule>([])
         ..activeTab = AppTab.schedules
+        ..ports = ListBuilder<DescriptivePortNameSystemPortNamePair>([])
+        ..thermostatSetupMap = MapBuilder<String, ThermostatSetupStatus>({})
         ..update(updates));
 
   factory AppState.fromSchedules(List<Schedule> schedules) =>
@@ -45,9 +48,17 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
 
   BuiltList<Schedule> get schedules;
 
+  BuiltList<DescriptivePortNameSystemPortNamePair> get ports;
+
+  BuiltMap<String, ThermostatSetupStatus> get thermostatSetupMap;
+
   //TODO: Is memoization necessary?
   @memoized
   List<Thermostat> get thermostatsSelector => thermostats.toList();
+
+  @memoized
+  List<DescriptivePortNameSystemPortNamePair> get portsSelector =>
+      ports.toList();
 
   @memoized
   List<Day> get daysSelector => days.toList();
