@@ -11,15 +11,13 @@ import 'package:betterstatmobile_client_components/thermostat/connector/add_ther
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-Store<AppState> store;
-
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  store = Store<AppState>(
+  var store = Store<AppState>(
     initialState: AppState.initialState(),
     wrapError: MyWrapError(),
   );
-  runApp(BetterstatApp());
+  runApp(BetterstatApp(store: store));
 }
 
 class MyWrapError extends WrapError {
@@ -41,6 +39,12 @@ class MyWrapError extends WrapError {
 ///https://localizely.com/flutter-localization-workflow/
 ///One could use Loco or Localizely
 class BetterstatApp extends StatelessWidget {
+  final Store<AppState> store;
+
+  BetterstatApp({Key key, @required this.store})
+      : assert(store != null),
+        super(key: key);
+
   @override
   Widget build(BuildContext context) => StoreProvider<AppState>(
         store: store,
