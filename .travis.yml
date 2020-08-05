@@ -9,10 +9,12 @@ install:
   - git clone https://github.com/flutter/flutter.git -b beta --depth 1 $FLUTTER_HOME
   - flutter doctor
   - flutter packages get
+  - cd business/ && flutter packages get && cd ..
+  - cd client/ && flutter packages get && cd ..
 script:
   # running there are some built_value classes that exist in both of these modules
-  - cd business/ && flutter packages get && flutter packages pub run build_runner build && cd ..
-  - cd client/ && flutter packages get && flutter packages pub run build_runner build && cd ..
+  - cd business/ && flutter packages pub run build_runner build && cd ..
+  - cd client/ && flutter packages pub run build_runner build && cd ..
   - flutter analyze --dartdocs
   - dartfmt -n . --set-exit-if-changed
   - flutter test --coverage --coverage-path=lcov.info .
