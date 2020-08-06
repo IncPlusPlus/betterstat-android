@@ -56,6 +56,7 @@ class ThermostatSetupStep extends EnumClass {
   static ThermostatSetupStep valueOf(String name) =>
       _$thermostatSetupStepValueOf(name);
 
+  //https://stackoverflow.com/a/55146329/1687436
   static BuiltSet<ThermostatSetupStep> get steps =>
       BuiltSet<ThermostatSetupStep>(const <ThermostatSetupStep>[
         _$NEED_THERMOSTAT_CONNECTION,
