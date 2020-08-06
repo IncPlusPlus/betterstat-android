@@ -25,9 +25,8 @@ const double _kTimePickerHeightPortraitCollapsed = 484.0;
 const double _kTimePickerHeightLandscapeCollapsed = 304.0;
 
 const Duration _kVibrateCommitDelay = Duration(milliseconds: 100);
-const BoxConstraints _kMinTappableRegion =
-    BoxConstraints(minWidth: 48, minHeight: 48);
 
+//TODO: This is an insanely jank and ugly mess. I need a good replacement.
 class _DayPickerHeader extends StatefulWidget {
   const _DayPickerHeader({
     @required this.selectedDay,
@@ -42,20 +41,6 @@ class _DayPickerHeader extends StatefulWidget {
   final ValueChanged<Day> onChanged;
   final List<Day> daysAvailable;
 
-  TextStyle _getBaseHeaderStyle(TextTheme headerTextTheme) {
-    // These font sizes aren't listed in the spec explicitly. I worked them out
-    // by measuring the text using a screen ruler and comparing them to the
-    // screen shots of the time picker in the spec.
-    assert(orientation != null);
-    switch (orientation) {
-      case Orientation.portrait:
-        return headerTextTheme.headline2.copyWith(fontSize: 60.0);
-      case Orientation.landscape:
-        return headerTextTheme.headline3.copyWith(fontSize: 50.0);
-    }
-    return null;
-  }
-
   @override
   State<StatefulWidget> createState() => _DayPickerHeaderState();
 }
@@ -64,12 +49,8 @@ class _DayPickerHeaderState extends State<_DayPickerHeader> {
   @override
   Widget build(BuildContext context) {
     assert(debugCheckHasMediaQuery(context));
-    final ThemeData themeData = Theme.of(context);
-    final MediaQueryData media = MediaQuery.of(context);
-//    final TimeOfDayFormat timeOfDayFormat = MaterialLocalizations.of(context)
-//        .timeOfDayFormat(alwaysUse24HourFormat: media.alwaysUse24HourFormat);
+    final themeData = Theme.of(context);
 
-    EdgeInsets padding;
     double height;
     double width;
 
@@ -77,11 +58,9 @@ class _DayPickerHeaderState extends State<_DayPickerHeader> {
     switch (widget.orientation) {
       case Orientation.portrait:
         height = _kTimePickerHeaderPortraitHeight;
-        padding = const EdgeInsets.symmetric(horizontal: 24.0);
         break;
       case Orientation.landscape:
         width = _kTimePickerHeaderLandscapeWidth;
-        padding = const EdgeInsets.symmetric(horizontal: 16.0);
         break;
     }
 
@@ -95,39 +74,14 @@ class _DayPickerHeaderState extends State<_DayPickerHeader> {
         break;
     }
 
-    Color activeColor;
-    Color inactiveColor;
     switch (themeData.primaryColorBrightness) {
       case Brightness.light:
-        activeColor = Colors.black87;
-        inactiveColor = Colors.black54;
         break;
       case Brightness.dark:
-        activeColor = Colors.white;
-        inactiveColor = Colors.white70;
         break;
     }
 
-//    final TextTheme headerTextTheme = themeData.primaryTextTheme;
-//    final TextStyle baseHeaderStyle = _getBaseHeaderStyle(headerTextTheme);
-//    final _TimePickerFragmentContext fragmentContext = _TimePickerFragmentContext(
-//      headerTextTheme: headerTextTheme,
-//      textDirection: Directionality.of(context),
-//      selectedDay: selectedDay,
-//      mode: mode,
-//      activeColor: activeColor,
-//      activeStyle: baseHeaderStyle.copyWith(color: activeColor),
-//      inactiveColor: inactiveColor,
-//      inactiveStyle: baseHeaderStyle.copyWith(color: inactiveColor),
-//      onTimeChange: onChanged,
-//      onModeChange: _handleChangeMode,
-//      targetPlatform: themeData.platform,
-//      use24HourDials: use24HourDials,
-//    );
-//
-//    final _DayPickerHeaderFormat format = _buildHeaderFormat(timeOfDayFormat, fragmentContext, orientation);
-
-    Day _daySelected = widget.selectedDay;
+    var _daySelected = widget.selectedDay;
 
     return Container(
       width: width,
@@ -236,10 +190,6 @@ class _DayPickerDialogState extends State<_DayPickerDialog> {
   @override
   Widget build(BuildContext context) {
     assert(debugCheckHasMediaQuery(context));
-    final media = MediaQuery.of(context);
-    final timeOfDayFormat = localizations.timeOfDayFormat(
-        alwaysUse24HourFormat: media.alwaysUse24HourFormat);
-    final use24HourDials = hourFormat(of: timeOfDayFormat) != HourFormat.h;
     final theme = Theme.of(context);
 
     final Widget picker = Padding(

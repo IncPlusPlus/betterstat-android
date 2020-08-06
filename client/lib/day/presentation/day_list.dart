@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'dart:async';
 
 import 'package:betterstatmobile_business_logic/generated/l10n.dart';
@@ -68,6 +64,10 @@ class DayList extends StatelessWidget {
         },
       ),
     ).then((removedDay) {
+      /*
+       * When the navigator pops, it will contain the Day the user was just viewing
+       * if they hit the delete button. This behavior is defined with DayDetailsScreen.onDelete
+       */
       if (removedDay != null) {
         Scaffold.of(context).showSnackBar(
           SnackBar(
@@ -88,51 +88,5 @@ class DayList extends StatelessWidget {
         );
       }
     });
-  }
-
-//  void _removeDay(BuildContext context, Day day) {
-//    onRemove(day);
-//
-//    Scaffold.of(context).showSnackBar(SnackBar(
-//        key: BetterstatKeys.snackbar,
-//        duration: Duration(seconds: 2),
-//        content: Text(
-//          S.of(context).dayDeleted(day.name),
-//          maxLines: 1,
-//          overflow: TextOverflow.ellipsis,
-//        ),
-//        action: SnackBarAction(
-//          label: S.of(context).undo,
-//          onPressed: () => onUndoRemove(day),
-//        )));
-//  }
-
-  Future<void> _showMyDialog(BuildContext context, Object error,
-      [StackTrace stackTrace]) async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('An error occurred'),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                Text(error.toString()),
-                Text(stackTrace.toString()),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            FlatButton(
-              child: Text('Ok'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
   }
 }

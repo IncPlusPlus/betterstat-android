@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-const _padding = EdgeInsets.all(12.0);
 const _formTextStyle = TextStyle(fontSize: 20.0);
 
 typedef OnSaveCallback = void Function(String task, String note);
