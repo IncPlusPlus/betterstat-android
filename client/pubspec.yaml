@@ -1,5 +1,5 @@
-name: betterstatmobile
-description: The mobile app to control betterstat.
+name: betterstatmobile_client_components
+description: The client components of betterstatmobile.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -25,8 +25,15 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  betterstatmobile_client_components:
-    path: ./client/
+  betterstatmobile_business_logic:
+    path: ../business/
+  flutter_icons: ^1.1.0
+  auto_size_text: ^2.1.0
+  built_value: ^7.1.0
+  content_placeholder: ^0.1.0
+#  https://github.com/danvick/flutter_form_builder/issues/261
+  flutter_chips_input: ^1.9.0-dev.3
+  flutter_form_builder: ^3.12.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -36,6 +43,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   pedantic: ^1.8.0
+  build_runner: ^1.10.0
+  built_value_generator: ^7.1.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

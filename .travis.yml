@@ -1,21 +1,40 @@
 os:
   - linux
 sudo: false
-before_install:
-  - export FLUTTER_HOME="${HOME}/flutter"
-  - export DART_HOME="$FLUTTER_HOME/bin/cache/dart-sdk/"
-  - export PATH="$FLUTTER_HOME/bin:$DART_HOME/bin:$PATH"
-install:
-  - git clone https://github.com/flutter/flutter.git -b beta --depth 1 $FLUTTER_HOME
-  - flutter doctor
-  - flutter packages get
-script:
-  - flutter packages pub run build_runner build
-  - flutter analyze --dartdocs
-  - dartfmt -n ./lib --set-exit-if-changed
-  - flutter test --coverage --coverage-path=lcov.info
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
 cache:
   directories:
     - $HOME/.pub-cache
+before_install:
+  - export FLUTTER_HOME="${HOME}/flutter"
+  - export DART_HOME="$FLUTTER_HOME/bin/cache/dart-sdk/"
+  - export DART_COVERAGE_HELPER_HOME="${HOME}/dart_full_coverage"
+  - export PATH="$FLUTTER_HOME/bin:$DART_HOME/bin:$DART_COVERAGE_HELPER_HOME:$PATH"
+install:
+  - git clone https://github.com/priezz/dart_full_coverage.git $DART_COVERAGE_HELPER_HOME
+  - chmod +x $DART_COVERAGE_HELPER_HOME/dart-coverage-helper
+  - git clone https://github.com/flutter/flutter.git -b beta --depth 1 $FLUTTER_HOME
+  - flutter doctor
+  - flutter packages get
+  - cd business/ && flutter packages get && cd ..
+  - cd client/ && flutter packages get && cd ..
+before_script:
+  # See https://github.com/flutter/flutter/issues/27997 and https://stackoverflow.com/a/60168472/1687436
+  - dart-coverage-helper
+  - cd business/ && dart-coverage-helper && cd ..
+  - cd client/ && dart-coverage-helper && cd ..
+  # There are some built_value classes that exist in both of these modules.
+  # At some point, it might become useful to have something like
+  # the `allDirs` function seen in https://github.com/brianegan/flutter_architecture_samples/blob/master/scripts/ci.sh
+  - cd business/ && flutter packages pub run build_runner build && cd ..
+  - cd client/ && flutter packages pub run build_runner build && cd ..
+script:
+  - flutter analyze --dartdocs
+  - dartfmt -n . --set-exit-if-changed
+  - flutter test --coverage --coverage-path=lcov.info .
+  - cd business/ && flutter test --coverage --coverage-path=lcov.info . && cd ..
+  - cd client/ && flutter test --coverage --coverage-path=lcov.info . && cd ..
+after_success:
+  # TODO: Eventually separate unit, widget, and integration testing (when they exist)
+  - bash <(curl -s https://codecov.io/bash) -f lcov.info
+  - bash <(curl -s https://codecov.io/bash) -f business/lcov.info
+  - bash <(curl -s https://codecov.io/bash) -f client/lcov.info

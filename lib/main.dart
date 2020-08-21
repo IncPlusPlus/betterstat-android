@@ -1,79 +1,76 @@
-import 'package:betterstatmobile/actions/actions.dart';
-import 'package:betterstatmobile/containers/add_schedule.dart';
-import 'package:betterstatmobile/localization.dart';
-import 'package:betterstatmobile/middleware/store_schedules_middleware.dart';
-import 'package:betterstatmobile/models/app_state.dart';
-import 'package:betterstatmobile/presentation/home_screen.dart';
-import 'package:betterstatmobile/reducers/reducers.dart';
-import 'package:betterstatmobile/util/keys.dart';
-import 'package:betterstatmobile/util/routes.dart';
-import 'package:built_redux/built_redux.dart';
+import 'package:async_redux/async_redux.dart';
+import 'package:betterstatmobile_business_logic/api/exceptions.dart';
+import 'package:betterstatmobile_business_logic/generated/l10n.dart';
+import 'package:betterstatmobile_business_logic/models/app_state.dart';
+import 'package:betterstatmobile_business_logic/util/keys.dart';
+import 'package:betterstatmobile_business_logic/util/routes.dart';
+import 'package:betterstatmobile_client_components/day/connector/add_day.dart';
+import 'package:betterstatmobile_client_components/presentation/home_screen.dart';
+import 'package:betterstatmobile_client_components/schedule/connector/add_schedule.dart';
+import 'package:betterstatmobile_client_components/thermostat/connector/add_thermostat.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_built_redux/flutter_built_redux.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-
-  runApp(BetterstatApp());
-}
-
-class BetterstatApp extends StatefulWidget {
-  final store = Store<AppState, AppStateBuilder, AppActions>(
-    reducerBuilder.build(),
-    AppState.loading(),
-    AppActions(),
-    middleware: [
-      createStoreSchedulesMiddleware(),
-    ],
+  var store = Store<AppState>(
+    initialState: AppState.initialState(),
+    wrapError: MyWrapError(),
   );
+  runApp(BetterstatApp(store: store));
+}
 
+class MyWrapError extends WrapError {
   @override
-  State<StatefulWidget> createState() {
-    return BetterstatAppState();
+  UserException wrap(Object error, StackTrace stackTrace, ReduxAction action) {
+    if (error is UnexpectedResponseException) {
+      return UserException(
+          'Communication error with server. Expected response code ${error.expectedCode} but got ${error.resultCode}.'
+          '\n\nResponse from server:\n${error.responseBody}',
+          cause: error);
+    } else {
+      return null;
+    }
   }
 }
 
-class BetterstatAppState extends State<BetterstatApp> {
-  Store<AppState, AppStateBuilder, AppActions> store;
+///To rebuild or edit the translations, follow the directions at these two links
+///https://marketplace.visualstudio.com/items?itemName=localizely.flutter-intl
+///https://localizely.com/flutter-localization-workflow/
+///One could use Loco or Localizely
+class BetterstatApp extends StatelessWidget {
+  final Store<AppState> store;
+
+  BetterstatApp({Key key, @required this.store})
+      : assert(store != null),
+        super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return ReduxProvider(
-      store: store,
-      child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Betterstat',
-          theme: ThemeData.light(),
-          localizationsDelegates: [
-            const BetterstatLocalizationsDelegate(),
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-          ],
-          supportedLocales: [
-            // The order of this list matters. By default, if the
-            // device's locale doesn't exactly match a locale in
-            // supportedLocales then the first locale in
-            // supportedLocales with a matching
-            // Locale.languageCode is used. If that fails then the
-            // first locale in supportedLocales is used.
-            const Locale('en'),
-          ],
-          routes: {
-            BetterstatRoutes.home: (context) {
-              return HomeScreen(key: BetterstatKeys.homeScreen);
-            },
-            BetterstatRoutes.addSchedule: (context) {
-              return AddSchedule();
-            },
-          }),
-    );
-  }
-
-  @override
-  void initState() {
-    store = widget.store;
-
-    super.initState();
-  }
+  Widget build(BuildContext context) => StoreProvider<AppState>(
+        store: store,
+        child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Betterstat',
+            theme: ThemeData.light(),
+            localizationsDelegates: [
+              S.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+            ],
+            supportedLocales: S.delegate.supportedLocales,
+            routes: {
+              BetterstatRoutes.home: (context) {
+                return HomeScreen(key: BetterstatKeys.homeScreen);
+              },
+              BetterstatRoutes.addSchedule: (context) {
+                return AddSchedule();
+              },
+              BetterstatRoutes.addDay: (context) {
+                return AddDay();
+              },
+              BetterstatRoutes.addThermostat: (context) {
+                return AddThermostat();
+              },
+            }),
+      );
 }

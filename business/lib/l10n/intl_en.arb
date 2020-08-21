@@ -1,0 +1,149 @@
+{
+  "appTitle": "Betterstat",
+  "@appTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "saveChanges": "Save changes",
+  "@saveChanges": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "cancel": "Cancel",
+  "@cancel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "delete": "Delete",
+  "@delete": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "itemDeleted": "Deleted \"{name}\"",
+  "@itemDeleted": {
+    "type": "text",
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "undo": "Undo",
+  "@undo": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "emptyTextFieldError": "Please enter some text",
+  "@emptyTextFieldError": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addThermostat": "Add Thermostat",
+  "@addThermostat": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "deleteThermostat": "Delete Thermostat",
+  "@deleteThermostat": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "deleteThermostatConfirmation": "Delete this thermostat?",
+  "@deleteThermostatConfirmation": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "editThermostat": "Edit Thermostat",
+  "@editThermostat": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "newThermostatHint": "Thermostat name",
+  "@newThermostatHint": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "thermostatDetails": "Thermostat Details",
+  "@thermostatDetails": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "thermostats": "Thermostats",
+  "@thermostats": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addSchedule": "Add Schedule",
+  "@addSchedule": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "deleteSchedule": "Delete Schedule",
+  "@deleteSchedule": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "deleteScheduleConfirmation": "Delete this schedule?",
+  "@deleteScheduleConfirmation": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "editSchedule": "Edit Schedule",
+  "@editSchedule": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "newScheduleHint": "Schedule name",
+  "@newScheduleHint": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "scheduleDetails": "Schedule Details",
+  "@scheduleDetails": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "schedules": "Schedules",
+  "@schedules": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addDay": "Add Day",
+  "@addDay": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "deleteDay": "Delete Day",
+  "@deleteDay": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "deleteDayConfirmation": "Delete this day?",
+  "@deleteDayConfirmation": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "editDay": "Edit Day",
+  "@editDay": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "newDayHint": "What should this day be named?",
+  "@newDayHint": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "dayDetails": "Day Details",
+  "@dayDetails": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "days": "Days",
+  "@days": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "stats": "Stats",
+  "@stats": {
+    "type": "text",
+    "placeholders": {}
+  }
+}

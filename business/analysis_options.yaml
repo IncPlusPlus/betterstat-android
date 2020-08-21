@@ -4,3 +4,4 @@ analyzer:
   exclude:
     - ./**/lib/**.g.dart
     - ./**/test/_data/**
+    - lib/generated/intl/*.dart
