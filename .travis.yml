@@ -12,7 +12,7 @@ before_install:
 install:
   - git clone https://github.com/priezz/dart_full_coverage.git $DART_COVERAGE_HELPER_HOME
   - chmod +x $DART_COVERAGE_HELPER_HOME/dart-coverage-helper
-  - git clone https://github.com/flutter/flutter.git -b beta --depth 1 $FLUTTER_HOME
+  - git clone https://github.com/flutter/flutter.git -b stable --depth 1 $FLUTTER_HOME
   - flutter doctor
   - flutter packages get
   - cd business/ && flutter packages get && cd ..
